@@ -5,6 +5,7 @@ class TugasAkhir extends CI_Controller {
         public function __construct()
         {
             parent::__construct();
+            error_reporting(0);
             $this->load->model("getmodel");
             $this->load->model("postmodel");
             $this->load->model("putmodel");
@@ -96,7 +97,8 @@ class TugasAkhir extends CI_Controller {
         redirect(base_url('index.php/TugasAkhir/daftarsaya/'.$tipe));
     }
     // fungsi untuk update status validasi pendaftaran dari hasil pilihan koordinator
-    public function accvalidasi($ta_id,$status){
+    public function accvalidasi($status){
+        $ta_id = $this->input->get("id");
         $this->putmodel->accValidasi($ta_id,$status);
         $this->session->set_flashdata("acc-validasi","Berhasil");
         redirect(base_url('index.php/TugasAkhir/daftar'));

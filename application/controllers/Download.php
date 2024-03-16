@@ -13,6 +13,7 @@ class Download extends CI_Controller {
         public function __construct()
         {
             parent::__construct();
+			error_reporting(0);
             $this->load->model('getmodel');
             $this->load->model('postmodel');
             $this->load->model('putmodel');

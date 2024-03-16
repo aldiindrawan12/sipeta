@@ -6,6 +6,7 @@ class Mahasiswa extends CI_Controller {
         public function __construct()
         {
             parent::__construct();
+            error_reporting(0);
             $this->load->model('getmodel');//load model
             $this->load->model('postmodel');//load model
             $this->load->model('putmodel');//load model

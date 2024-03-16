@@ -12,7 +12,7 @@
                                 </button>
                             </div>
                         </div>
-                        <?php echo form_open_multipart(base_url('index.php/tugasakhir/postperiode')); ?>
+                        <?php echo form_open_multipart(base_url('index.php/TugasAkhir/postperiode')); ?>
                         <div class="block-content font-size-sm">
                             <div class="block">
                                 <div class="block-content">
@@ -71,7 +71,7 @@
                                 </button>
                             </div>
                         </div>
-                        <?php echo form_open_multipart(base_url('index.php/tugasakhir/updateperiode/?periode_id=').$periode["periode_id"]); ?>
+                        <?php echo form_open_multipart(base_url('index.php/TugasAkhir/updateperiode/?periode_id=').$periode["periode_id"]); ?>
                         <div class="block-content font-size-sm">
                             <div class="block">
                                 <div class="block-content">
@@ -170,7 +170,7 @@
                                 </button>
                             </div>
                         </div>
-                        <form action="<?= base_url('index.php/koordinator/postdosen'); ?>" method="POST" onsubmit="return ceknip()">
+                        <form action="<?= base_url('index.php/Koordinator/postdosen'); ?>" method="POST" onsubmit="return ceknip()">
                         <div class="block-content font-size-sm">
                             <div class="block">
                                 <div class="block-content">
@@ -242,7 +242,7 @@
                                 </button>
                             </div>
                         </div>
-                        <?php echo form_open_multipart(base_url('index.php/koordinator/updatedosen')); ?>
+                        <?php echo form_open_multipart(base_url('index.php/Koordinator/updatedosen')); ?>
                         <div class="block-content font-size-sm">
                             <div class="block">
                                 <div class="block-content">
@@ -322,7 +322,7 @@
                                 </button>
                             </div>
                         </div>
-                        <form action="<?= base_url('index.php/auth/updatepassword'); ?>" method="POST" onsubmit="return cekpassword()">
+                        <form action="<?= base_url('index.php/Auth/updatepassword'); ?>" method="POST" onsubmit="return cekpassword()">
                         <div class="block-content font-size-sm">
                             <div class="block">
                                 <div class="block-content">

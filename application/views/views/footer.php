@@ -299,7 +299,7 @@
                         [0, 'asc']
                     ],
                     "ajax": {
-                        "url": "<?= base_url('index.php/datatables/dosen_tabel') ?>",
+                        "url": "<?= base_url('index.php/Datatables/dosen_tabel') ?>",
                         "type": "POST",
                     },
                     "deferRender": true,
@@ -357,7 +357,7 @@
             function viewdosen(nip){
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('index.php/koordinator/ajaxdosen') ?>",
+                    url: "<?php echo base_url('index.php/Koordinator/ajaxdosen') ?>",
                     dataType: "JSON",
                     data: {
                         nip: nip
@@ -380,7 +380,7 @@
             function updatedosen(nip){
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('index.php/koordinator/ajaxdosen') ?>",
+                    url: "<?php echo base_url('index.php/Koordinator/ajaxdosen') ?>",
                     dataType: "JSON",
                     data: {
                         nip: nip
@@ -410,7 +410,7 @@
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.location.href = "<?= base_url("index.php/koordinator/deletedosen/")?>"+nip
+                        window.location.href = "<?= base_url("index.php/Koordinator/deletedosen/")?>"+nip
                     }
                 });
             }
@@ -471,7 +471,7 @@
                         [0, 'asc']
                     ],
                     "ajax": {
-                        "url": "<?= base_url('index.php/datatables/daftar_tabel') ?>",
+                        "url": "<?= base_url('index.php/Datatables/daftar_tabel') ?>",
                         "type": "POST",
                     },
                     "deferRender": true,
@@ -582,7 +582,7 @@
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.location.href = "<?= base_url("index.php/tugasakhir/accvalidasi/")?>"+id+"/"+status;
+                        window.location.href = "<?= base_url("index.php/TugasAkhir/accvalidasi/")?>"+status+"?id="+id;
                     }
                 });
             }
@@ -602,7 +602,7 @@
                 $("#btn-batal").attr("onclick","validasi('"+id+"','MEMBATALKAN')");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('index.php/tugasakhir/ajaxdaftar') ?>",
+                    url: "<?php echo base_url('index.php/TugasAkhir/ajaxdaftar') ?>",
                     dataType: "JSON",
                     data: {
                         ta_id: id
@@ -639,8 +639,8 @@
                         $("#ta_tim_nama").text(': '+data["ta_tim_nama"]);
                         $("#ta_kebaharuan").text(data["ta_kebaharuan"]);
                         $("#ta_pendukung").attr("href",data["ta_pendukung"]);
-                        $("#ta_draft").attr("href","<?= base_url("index.php/mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
-                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        $("#ta_draft").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
+                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
                     }
                 });
             }
@@ -649,7 +649,7 @@
         <!-- download -->
         <script>
             function download(tipe){
-                window.location.href = "<?= base_url("index.php/download/")?>"+tipe;
+                window.location.href = "<?= base_url("index.php/Download/")?>"+tipe;
             }
         </script>
         <!-- end download -->
@@ -663,7 +663,7 @@
                     denyButtonText: `Batal`
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "<?= base_url("index.php/tugasakhir/closeperiode/?periode_id=")?>"+id
+                        window.location.href = "<?= base_url("index.php/TugasAkhir/closeperiode/?periode_id=")?>"+id
                     }
                 });
             }
@@ -685,7 +685,7 @@
                         setTimeout(function () {
                             One.loader('hide');
                         },100000)
-                        window.location.href = "<?= base_url("index.php/tugasakhir/ploting")?>"
+                        window.location.href = "<?= base_url("index.php/TugasAkhir/ploting")?>"
                     }
                 });
             }
@@ -707,7 +707,7 @@
                         setTimeout(function () {
                             One.loader('hide');
                         },100000)
-                        window.location.href = "<?= base_url("index.php/tugasakhir/kunci")?>"
+                        window.location.href = "<?= base_url("index.php/TugasAkhir/kunci")?>"
                     }
                 });
             }
@@ -729,7 +729,7 @@
                         setTimeout(function () {
                             One.loader('hide');
                         },100000)
-                        window.location.href = "<?= base_url("index.php/tugasakhir/validasiperiode")?>"
+                        window.location.href = "<?= base_url("index.php/TugasAkhir/validasiperiode")?>"
                     }
                 });
             }
@@ -753,7 +753,7 @@
                         [0, 'asc']
                     ],
                     "ajax": {
-                        "url": "<?= base_url('index.php/datatables/daftar_tabel') ?>",
+                        "url": "<?= base_url('index.php/Datatables/daftar_tabel') ?>",
                         "type": "POST",
                         'data': function(data) {
                             data.dosen_nip = "<?= $akun["dosen_nip"]?>";
@@ -865,7 +865,7 @@
                             }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
-                                window.location.href = "<?= base_url("index.php/tugasakhir/accbimbingan/")?>"+tipe+"/"+status+"?ta_id="+id;
+                                window.location.href = "<?= base_url("index.php/TugasAkhir/accbimbingan/")?>"+tipe+"/"+status+"?ta_id="+id;
                             }
                         });
                 }
@@ -886,7 +886,7 @@
                 $("#btn-batal").attr("onclick","accbimbingan('"+id+"',"+tipe+",'MEMBATALKAN')");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('index.php/tugasakhir/ajaxdaftar') ?>",
+                    url: "<?php echo base_url('index.php/TugasAkhir/ajaxdaftar') ?>",
                     dataType: "JSON",
                     data: {
                         ta_id: id
@@ -926,8 +926,8 @@
                         $("#ta_tim_nama").text(': '+data["ta_tim_nama"]);
                         $("#ta_kebaharuan").text(data["ta_kebaharuan"]);
                         $("#ta_pendukung").attr("href",data["ta_pendukung"]);
-                        $("#ta_draft").attr("href","<?= base_url("index.php/mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
-                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        $("#ta_draft").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
+                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
                     }
                 });
             }
@@ -951,7 +951,7 @@
                         [0, 'asc']
                     ],
                     "ajax": {
-                        "url": "<?= base_url('index.php/datatables/arsip_tabel') ?>",
+                        "url": "<?= base_url('index.php/Datatables/arsip_tabel') ?>",
                         "type": "POST",
                     },
                     "deferRender": true,
@@ -1004,7 +1004,7 @@
         </script>
         <script>
             function downloadarsip(data){
-                window.location.href = "<?= base_url("index.php/download/daftar?periode=")?>"+data;
+                window.location.href = "<?= base_url("index.php/Download/daftar?periode=")?>"+data;
             }
         </script>
         <!-- end datatables arsip Pendaftaran Ta -->

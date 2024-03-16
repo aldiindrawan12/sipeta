@@ -6,7 +6,7 @@ class DeleteModel extends CI_model
         $this->db->where("user_id",$dosen_nip);
         $this->db->delete("sipeta_akun");
         
-        $this->db->set("dosen_nip",$dosen_nip."-arsip".date(YmHi));
+        $this->db->set("dosen_nip",$dosen_nip."-arsip");
         $this->db->set("dosen_status","Tidak Aktif");
         $this->db->where("dosen_nip",$dosen_nip);
         $this->db->update("sipeta_dosen");
