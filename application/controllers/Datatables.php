@@ -6,6 +6,7 @@ class Datatables extends CI_Controller {
         public function __construct()
         {
             parent::__construct();
+            error_reporting(0);
             $this->load->model('datatablesmodel');
             $this->load->model('getmodel');
             date_default_timezone_set('Asia/Jakarta');

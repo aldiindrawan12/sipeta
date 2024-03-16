@@ -37,12 +37,12 @@
                             <li class="nav-main-heading">Pendaftaran TA</li>
                             <li class="nav-main-item">
                                 <?php if($_SESSION["akun_role"]=="Koordinator"){?>
-                                <a class="nav-main-link" href="<?= base_url('index.php/tugasakhir/daftar')?>">
+                                <a class="nav-main-link" href="<?= base_url('index.php/TugasAkhir/daftar')?>">
                                     <i class="nav-main-link-icon fa fa-user-friends"></i>
                                     <span class="nav-main-link-name">Pendaftaran</span>
                                 </a>
                                 <?php }?>
-                                <a class="nav-main-link" href="<?= base_url('index.php/tugasakhir/arsip')?>">
+                                <a class="nav-main-link" href="<?= base_url('index.php/TugasAkhir/arsip')?>">
                                     <i class="nav-main-link-icon fa fa-user-clock"></i>
                                     <span class="nav-main-link-name">Arsip Pendaftaran</span>
                                 </a>
@@ -51,11 +51,11 @@
                         <?php if($_SESSION["akun_role"] != "Mahasiswa"){?>
                             <li class="nav-main-heading">Pendaftaran TA Saya</li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="<?= base_url('index.php/tugasakhir/daftarsaya/1')?>">
+                                <a class="nav-main-link" href="<?= base_url('index.php/TugasAkhir/daftarsaya/1')?>">
                                     <i class="nav-main-link-icon fa fa-user-tag"></i>
                                     <span class="nav-main-link-name">Pembimbing 1</span>
                                 </a>
-                                <a class="nav-main-link" href="<?= base_url('index.php/tugasakhir/daftarsaya/2')?>">
+                                <a class="nav-main-link" href="<?= base_url('index.php/TugasAkhir/daftarsaya/2')?>">
                                     <i class="nav-main-link-icon fa fa-user-tag"></i>
                                     <span class="nav-main-link-name">Pembimbing 2</span>
                                 </a>

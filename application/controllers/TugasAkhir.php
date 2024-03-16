@@ -93,13 +93,13 @@ class TugasAkhir extends CI_Controller {
         $ta_id = $this->input->get("ta_id");
         $this->putmodel->accBimbingan($ta_id,$tipe,$status);
         $this->session->set_flashdata("acc","Berhasil");
-        redirect(base_url('index.php/tugasakhir/daftarsaya/'.$tipe));
+        redirect(base_url('index.php/TugasAkhir/daftarsaya/'.$tipe));
     }
     // fungsi untuk update status validasi pendaftaran dari hasil pilihan koordinator
     public function accvalidasi($ta_id,$status){
         $this->putmodel->accValidasi($ta_id,$status);
         $this->session->set_flashdata("acc-validasi","Berhasil");
-        redirect(base_url('index.php/tugasakhir/daftar'));
+        redirect(base_url('index.php/TugasAkhir/daftar'));
     }
     //fungsi untuk mendapatkan data pendaftaran tugas akhir dari database
     public function ajaxdaftar(){
@@ -124,7 +124,7 @@ class TugasAkhir extends CI_Controller {
         );
         $this->postmodel->insertPeriode($data);
         $this->session->set_flashdata("insert-periode","Berhasil");
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
     //fungsi untuk update tanggal pendaftaran di database
     public function updateperiode(){
@@ -135,14 +135,14 @@ class TugasAkhir extends CI_Controller {
         );
         $this->putmodel->updatePeriode($data);
         $this->session->set_flashdata("update-periode","Berhasil");
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
     // fungsi untuk menutup pendaftaran
     public function closeperiode(){
         $periode = $this->getmodel->getPeriode();
         $this->putmodel->closePeriode($this->input->get('periode_id'));
         $this->session->set_flashdata("close-periode","Berhasil");
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
 
     // fungsi untuk menutup validasi
@@ -178,7 +178,7 @@ class TugasAkhir extends CI_Controller {
 
         $this->putmodel->validasiPeriode($periode['periode_id'],$kuota);
         $this->session->set_flashdata("validasi-periode","Berhasil");
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
 
     public function ploting(){
@@ -223,14 +223,14 @@ class TugasAkhir extends CI_Controller {
         }
         $this->putmodel->plotPeriode($periode["periode_id"]);
         $this->session->set_flashdata('status-ploting', 'Selesai');
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
 
     public function kunci(){
         $periode = $this->getmodel->getPeriode();
         $this->putmodel->selesaiPeriode($periode["periode_id"]);
         $this->session->set_flashdata('status-kunci', 'Selesai');
-        redirect(base_url("index.php/tugasakhir/daftar"));
+        redirect(base_url("index.php/TugasAkhir/daftar"));
     }
 
 
