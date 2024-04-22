@@ -182,7 +182,7 @@ class Download extends CI_Controller {
 		foreach($pem1 as $value){
 			$nim = $mhs[$l]["mhs_nim"];
 			$data = array(
-				'ta_id' => "TA".$mhs[$l]["mhs_nim"]."_Periode-2024/03/11-561",
+				'ta_id' => "TA".$mhs[$l]["mhs_nim"]."_Periode-2024/04/20-370",
 				'mhs_nim' => $nim,
 				'dosen1' => $value["nip"],
 				'dosen2' => $pem2[$l]["nip"],
@@ -197,7 +197,7 @@ class Download extends CI_Controller {
 				'ta_asal' => "Sendiri",
 				'ta_pkl' => "Tidak",
 				'ta_tim' => "Regular",
-				'periode_id' => "Periode-2024/03/11-561"
+				'periode_id' => "Periode-2024/04/20-370"
 			);
 			$l++;
 			$this->postmodel->insertTa($data);

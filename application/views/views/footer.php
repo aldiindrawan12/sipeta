@@ -575,7 +575,7 @@
                 Swal.fire({
                     icon: "question",
                     title: "Ubah Validasi",
-                    text: status+" Tugas Akhir Ini?",
+                    text: status+" Validasi Tugas Akhir Ini?",
                     showDenyButton: true,
                     confirmButtonText: "Ya",
                     denyButtonText: `Batal`

@@ -36,7 +36,7 @@ class PutModel extends CI_model
         if($status == "TOLAK"){
             $status = "Ditolak";
         }else{
-            $status = "Diajukan";
+            $status = "Proses Validasi";
         }
         $this->db->set("ta_progres",$status);
         $this->db->where("ta_id",$ta_id);
