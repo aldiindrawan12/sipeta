@@ -582,7 +582,19 @@
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.location.href = "<?= base_url("index.php/TugasAkhir/accvalidasi/")?>"+status+"?id="+id;
+                        // ajax save catatan
+                        $.ajax({
+                            type: "GET",
+                            url: "<?php echo base_url('index.php/TugasAkhir/catatan') ?>",
+                            dataType: "text",
+                            data: {
+                                catatan: $("#ta_catatan").val(),
+                                id: id
+                            },
+                            success: function(data) { //jika ambil data sukses
+                                window.location.href = "<?= base_url("index.php/TugasAkhir/accvalidasi/")?>"+status+"?id="+id;
+                            }
+                        });
                     }
                 });
             }
@@ -626,6 +638,7 @@
                         }else{
                             $("#dosen_status").text(": "+data["ta_progres"]);
                         }
+                        $("#ta_catatan").val(data["ta_catatan"]);
                         $("#ta_judul").text('"'+data["ta_judul"]+'"');
                         $("#mhs_nim").text(': '+data["mhs_nim"]);
                         $("#mhs_nama").text(': '+data["mhs_nama"]);

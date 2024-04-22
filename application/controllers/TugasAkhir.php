@@ -103,6 +103,13 @@ class TugasAkhir extends CI_Controller {
         $this->session->set_flashdata("acc-validasi","Berhasil");
         redirect(base_url('index.php/TugasAkhir/daftar'));
     }
+    //fungsi untuk dave catatan pendaftaran ta dari koordinator 
+    public function catatan(){
+        $catatan = $this->input->get("catatan");
+        $id = $this->input->get("id");
+        $this->putmodel->savecatatan($id,$catatan);
+        echo "success";
+    }
     //fungsi untuk mendapatkan data pendaftaran tugas akhir dari database
     public function ajaxdaftar(){
         $ta_id = $this->input->get("ta_id");

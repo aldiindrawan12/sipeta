@@ -42,6 +42,11 @@ class PutModel extends CI_model
         $this->db->where("ta_id",$ta_id);
         return $this->db->update("sipeta_ta");
     }
+    public function savecatatan($id,$catatan){
+        $this->db->set("ta_catatan",$catatan);
+        $this->db->where("ta_id",$id);
+        return $this->db->update("sipeta_ta");
+    }
     public function setAkunStatus($status,$akun_email){
         $this->db->set("akun_status",$status);
         if($status=="Online"){

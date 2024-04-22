@@ -444,6 +444,8 @@
                                                 <button class="col-sm-8 col-md-3 m-auto btn btn-md border border-secondary" id="btn-acc"><i class="fa fa-check text-success"></i></button>
                                                 <button class="col-sm-8 col-md-3 m-auto btn btn-md border border-secondary" id="btn-tolak"><i class="fa fa-times text-danger"></i></button>
                                                 <button class="col-sm-8 col-md-3 m-auto btn btn-md border border-secondary text-warning" id="btn-batal">Batal</button>
+                                                <label for="ta_catatan">Catatan</label>
+                                                <textarea class="form-control" id="ta_catatan" name="ta_catatan" rows="4" style="height: 100px;"></textarea>
                                             </div>
                                         </div>
                                     </div>    
