@@ -46,10 +46,11 @@
                                                 <thead class="bg-secondary text-white">
                                                     <tr>
                                                         <th class="text-center" style="width: 5%;">NIM</th>
-                                                        <th class="text-center" style="width: 35%;">Judul</th>
-                                                        <th class="text-center" style="width: 20%;">Pembimbing 1</th>
-                                                        <th class="text-center" style="width: 20%;">Pembimbing 2</th>
-                                                        <th class="text-center" style="width: 10%;">Status</th>
+                                                        <th class="text-center" style="width: 25%;">Judul</th>
+                                                        <th class="text-center" style="width: 15%;">Pembimbing 1</th>
+                                                        <th class="text-center" style="width: 15%;">Pembimbing 2</th>
+                                                        <th class="text-center" style="width: 10%;">Status Judul</th>
+                                                        <th class="text-center" style="width: 10%;">Tipe Judul</th>
                                                         <th class="text-center" style="width: 10%;">Aksi</th>
                                                     </tr>
                                                 </thead>

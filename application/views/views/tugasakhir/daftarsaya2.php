@@ -42,14 +42,18 @@
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Sisa Kuota Bimbingan</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <?= $akun["dosen_kuota2"]?></p>
                                             </div>
+                                            <p class="font-size-sm text-muted">
+                                                Catatan : Utamakan verifikasi pendaftar dengan status judul <strong>DISPENSASI</strong> dan tipe judul <strong>TIM/CAPSTONE</strong>
+                                            </p>
                                             <table class="table table-vcenter table-striped table-bordered" id="daftar-saya-tabel">
                                                 <thead class="bg-secondary text-white">
                                                     <tr>
                                                         <th class="text-center" style="width: 5%;">NIM</th>
-                                                        <th class="text-center" style="width: 35%;">Judul</th>
-                                                        <th class="text-center" style="width: 20%;">Pembimbing 1</th>
-                                                        <th class="text-center" style="width: 20%;">Pembimbing 2</th>
-                                                        <th class="text-center" style="width: 10%;">Status</th>
+                                                        <th class="text-center" style="width: 25%;">Judul</th>
+                                                        <th class="text-center" style="width: 15%;">Pembimbing 1</th>
+                                                        <th class="text-center" style="width: 15%;">Pembimbing 2</th>
+                                                        <th class="text-center" style="width: 10%;">Status Judul</th>
+                                                        <th class="text-center" style="width: 10%;">Tipe Judul</th>
                                                         <th class="text-center" style="width: 10%;">Aksi</th>
                                                     </tr>
                                                 </thead>

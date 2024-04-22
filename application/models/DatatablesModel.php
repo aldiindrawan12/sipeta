@@ -139,7 +139,8 @@ class DatatablesModel extends CI_model
         if($searchQuery != ''){
             $this->db->where($searchQuery);
         }
-        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->order_by("ta_status", "DESC");
+        $this->db->order_by("ta_tim", "DESC");
         $this->db->limit($rowperpage, $start);
         $records = $this->db->get('sipeta_ta')->result();
     
@@ -152,6 +153,8 @@ class DatatablesModel extends CI_model
                 "no"=>$n,
                 "ta_id"=>$record->ta_id,
                 "ta_judul"=>$record->ta_judul,
+                "ta_status"=>$record->ta_status,
+                "ta_tim"=>$record->ta_tim,
                 "sipeta_ta.mhs_nim"=>$record->mhs_nim,
                 "mhs_nama"=>$record->mhs_nama,
                 "dosen1"=>$pembimbing1["dosen_nama"],

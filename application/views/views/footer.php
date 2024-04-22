@@ -782,6 +782,7 @@
                     "columns": [
                         {
                             "data": "sipeta_ta.mhs_nim",
+                            "orderable": false,
                             render: function(data, type, row) {
                                 let html = "<small>"+row["sipeta_ta.mhs_nim"]+"</small>";
                                 return html;
@@ -812,28 +813,26 @@
                             }
                         },
                         {
+                            "data": "ta_status",
+                            "orderable": false,
+                            className : "text-center"
+                        },
+                        {
+                            "data": "ta_tim",
+                            "orderable": false,
+                            className : "text-center"
+                        },
+                        {
                             "data": "dosen"+<?= $tipe?>+"_status",
                             "orderable": false,
                             className : "text-center",
                             render: function(data, type, row) {
                                 let html = "";
                                 if(data=="Diajukan"){
-                                    html += "<small><i class='fa fa-question mr-1 text-warning'></i></small>";
-                                }else if(data=="Ditolak"){
-                                    html += "<small><i class='fa fa-times mr-1 text-danger'></i></small>";
+                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><small><i class='fa fa-question mr-1 text-warning'></i></small><i class='far fa-eye text-dark'></i></a>";;
                                 }else{
-                                    html += "<small><i class='fa fa-check mr-1 text-success'></i></small>";
+                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><small><i class='fa fa-check mr-1 text-success'></i></small><i class='far fa-eye text-dark'></i></a>";
                                 }
-                                return html;
-                            }
-                        },
-                        {
-                            "data": "ta_id",
-                            "orderable": false,
-                            className : "text-center",
-                            render: function(data, type, row) {
-                                let html = 
-                                "<a onclick='viewdaftar(`"+data+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><i class='far fa-eye text-dark'></i></a>";
                                 return html;
                             }
                         },
@@ -878,7 +877,18 @@
                             }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
-                                window.location.href = "<?= base_url("index.php/TugasAkhir/accbimbingan/")?>"+tipe+"/"+status+"?ta_id="+id;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "<?php echo base_url('index.php/TugasAkhir/catatan') ?>",
+                                    dataType: "text",
+                                    data: {
+                                        catatan: $("#ta_catatan").val(),
+                                        id: id
+                                    },
+                                    success: function(data) { //jika ambil data sukses
+                                        window.location.href = "<?= base_url("index.php/TugasAkhir/accbimbingan/")?>"+tipe+"/"+status+"?ta_id="+id;
+                                    }
+                                });
                             }
                         });
                 }
@@ -926,6 +936,7 @@
                         }else{
                             $("#dosen_status").text(": "+data["dosen"+tipe+"_status"]);
                         }
+                        $("#ta_catatan").val(data["ta_catatan"]);
                         $("#ta_judul").text('"'+data["ta_judul"]+'"');
                         $("#mhs_nim").text(': '+data["mhs_nim"]);
                         $("#mhs_nama").text(': '+data["mhs_nama"]);
