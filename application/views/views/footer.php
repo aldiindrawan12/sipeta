@@ -217,6 +217,23 @@
         <?php if($page == "Daftar Tugas Akhir"){?>
         <!-- script validasi file pendaftaran -->
         <script>
+            function ceksize(id){
+                var inputFile = document.getElementById(id);
+                var size = inputFile.files[0].size;
+                var pathFile = inputFile.value;
+                var ekstensiOk = /(\.pdf)$/i;
+                if(size > 1000000){
+                    Swal.fire({
+                        title: "Gagal",
+                        icon: "error",
+                        text: "Silakan Upload File Sesuai Ekstensi dan Ukuran Yang Diizinkan",
+                        type: "error",
+                        timer: 4500
+                    });
+                    inputFile.value = '';
+                    return false;
+                }
+            }
             function cekextensionpdf(id){
                 var inputFile = document.getElementById(id);
                 var size = inputFile.files[0].size;

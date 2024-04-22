@@ -42,6 +42,9 @@
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Sisa Kuota Bimbingan</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <?= $akun["dosen_kuota1"]?></p>
                                             </div>
+                                            <p class="font-size-sm text-muted">
+                                                Catatan : Utamakan verifikasi pendaftar dengan status judul <strong>DISPENSASI</strong> dan tipe judul <strong>TIM/CAPSTONE</strong>
+                                            </p>
                                             <table class="table table-vcenter table-striped table-bordered" id="daftar-saya-tabel">
                                                 <thead class="bg-secondary text-white">
                                                     <tr>

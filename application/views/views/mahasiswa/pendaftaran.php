@@ -118,7 +118,7 @@
                                                     <label for="ta_pendukung">File Tambahan</label>
                                                     <div class="font-size-sm text-dark"><em>(excel, pdf, word) pendukung draft TA. Ukuran file maksimal 1 mb.</em></div>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" data-toggle="custom-file-input" id="ta_pendukung" name="ta_pendukung" required>
+                                                        <input type="file" class="custom-file-input" data-toggle="custom-file-input" id="ta_pendukung" name="ta_pendukung" onchange="ceksize('ta_pendukung')" required>
                                                         <label class="custom-file-label" for="ta_pendukung">Choose file</label>
                                                     </div>
                                                 </div>
