@@ -76,8 +76,40 @@ class Koordinator extends CI_Controller {
             "akun_role" => $this->input->post("akun_role"),
             "akun_verifikasi" => "True",
         );
+        // $config = [
+        //     'protocol' => "smtp",
+        //     'smtp_host' => "ssl://smtp.googlemail.com",
+        //     'smtp_user' => "aldiindrawan04@gmail.com",
+        //     'smtp_pass' => "hnyd ppva eekl dkxj",
+        //     'mailtype' => "html",
+        //     'smtp_port' => 465,
+        //     'charset' => "utf-8",
+        //     'newline' => "\r\n"
+        // ];
+        // $this->email->initialize($config);
+        // $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
+        // $this->email->to($akun["akun_email"]);
+        // $this->email->subject('Akun Sistem Informasi Pendaftaran Tugas Akhir');
+        // $this->email->message('Email anda sudah didaftarkan dalam sistem informasi pendaftaran dengan detail sebagai berikut :<br><br>'.
+        // '<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://sipeta.noz.co.id<br>Email : '.$akun["akun_email"].'<br>password : Dosen12345678');
+        // //Send mail
+        // $this->email->send()
+        
         $this->postmodel->insertDosen($dosen);
         $this->postmodel->insertAkun($akun);
+        $this->session->set_flashdata("insert-dosen","Berhasil");
+        redirect(base_url("index.php/koordinator"));
+    }
+
+     // fungsi untuk menyimpan data dosen luar baru ke database
+     public function postdosenluar(){
+        $dosen = array(
+            "dosen_nip" => $this->input->post("dosen_nip"),
+            "dosen_nama" => $this->input->post("dosen_nama"),
+            "dosen_telp" => $this->input->post("dosen_telp"),
+            "dosen_email" => $this->input->post("dosen_email"),
+        );
+        $this->postmodel->insertDosenLuar($dosen);
         $this->session->set_flashdata("insert-dosen","Berhasil");
         redirect(base_url("index.php/koordinator"));
     }
@@ -121,4 +153,15 @@ class Koordinator extends CI_Controller {
         redirect(base_url("index.php/koordinator"));
     }
 
+    // fungsi untuk update data maksimal bimbingan dosen di database
+    public function updatemakspemb(){
+        $dosen=array(
+            "dosen_nip"=>$this->input->post("dosen_nip_max"),
+            "dosen_max1"=>$this->input->post("dosen_max1"),
+            "dosen_max2"=>$this->input->post("dosen_max2"),
+        );
+        $this->putmodel->updateMaxDosen($dosen);
+        $this->session->set_flashdata("update-max-dosen","Berhasil");
+        redirect(base_url("index.php/koordinator"));
+    }
 }

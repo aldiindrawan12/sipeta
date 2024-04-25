@@ -116,6 +116,9 @@ class TugasAkhir extends CI_Controller {
         $daftar = $this->getmodel->getTaById($ta_id);
         $pembimbing1 = $this->getmodel->getDosenByNip($daftar["dosen1"]);
         $pembimbing2 = $this->getmodel->getDosenByNip($daftar["dosen2"]);
+        if(count($pembimbing2)==0){
+            $pembimbing2 = $this->getmodel->getDosenByNipLuar($daftar["dosen2"]);
+        }
         $daftar["pembimbing1"] = $pembimbing1["dosen_nama"];
         $daftar["pembimbing2"] = $pembimbing2["dosen_nama"];
         echo json_encode($daftar);
@@ -158,8 +161,42 @@ class TugasAkhir extends CI_Controller {
     public function validasiperiode(){
         $periode = $this->getmodel->getPeriode();
         $daftar = $this->getmodel->getAllPendaftar($periode["periode_id"]);
+        $daftar2 = $this->getmodel->getAllPendaftarif($periode["periode_id"]);
         $dosen_tersedia = $this->getmodel->getAllDosenTersedia();
-        $kuota = ceil(count($daftar)/count($dosen_tersedia));
+        $dosen_maksimal1 = $this->getmodel->getAllDosenTersediaMaksimal1();
+        $dosen_maksimal2 = $this->getmodel->getAllDosenTersediaMaksimal2();
+
+        //perhitungan kuota bimbingan
+        $sum1 = 0;
+        $sum_dosen1 = 0;
+        $sum2 = 0;
+        $sum_dosen2 = 0;
+        foreach ($dosen_tersedia as $value){
+            if($value["dosen_max1"]!=0){
+                $sum1 += $value["dosen_max1"];
+            }else{
+                $sum_dosen1 += 1;
+            }
+            if($value["dosen_max2"]!=0){
+                $sum2 += $value["dosen_max2"];
+            }else{
+                $sum_dosen2 += 1;
+            }
+        }
+        $final_sum1 = ceil((count($daftar)-$sum1)/$sum_dosen1);
+        $final_sum2 = ceil((count($daftar2)-$sum2)/$sum_dosen2);
+        foreach ($dosen_tersedia as $value){
+            if($value["dosen_max1"]!=0){
+                $this->putmodel->setMaksimalBimbingan($value["dosen_nip"],1,$value["dosen_max1"]);
+            }else{
+                $this->putmodel->setMaksimalBimbingan($value["dosen_nip"],1,$final_sum1);
+            }
+            if($value["dosen_max2"]!=0){
+                $this->putmodel->setMaksimalBimbingan($value["dosen_nip"],2,$value["dosen_max2"]);
+            }else{
+                $this->putmodel->setMaksimalBimbingan($value["dosen_nip"],2,$final_sum2);
+            }
+        }
 
         //fungsi kirim email
         // foreach($dosen_tersedia as $value){
@@ -195,7 +232,7 @@ class TugasAkhir extends CI_Controller {
         $pembimbing2 = $this->getmodel->getAllPendaftarDiajukan($periode["periode_id"],2);
         $pembimbing1 = $this->getmodel->getAllPendaftarDiajukan($periode["periode_id"],1);
         foreach($pembimbing1 as $value){
-            if($value["dosen1_status"]=="Diajukan"){
+            if($value["dosen1_status"]=="Diajukan" || $value["dosen1_status"]=="Ditolak"){
                 $kuota_dosen = $this->getmodel->getDosenByNip($value["dosen1"]);
                 if($kuota_dosen["dosen_kuota1"]>0){
                     $this->putmodel->plotPembimbing($value["ta_id"],$value["dosen1"],1,$kuota_dosen["dosen_kuota1"]-1);
@@ -213,7 +250,7 @@ class TugasAkhir extends CI_Controller {
             }
         }
         foreach($pembimbing2 as $value){
-            if($value["dosen2_status"]=="Diajukan"){
+            if($value["dosen2_status"]=="Diajukan" || $value["dosen1_status"]=="Ditolak"){
                 $kuota_dosen = $this->getmodel->getDosenByNip($value["dosen2"]);
                 if($kuota_dosen["dosen_kuota2"]>0){
                     $this->putmodel->plotPembimbing($value["ta_id"],$value["dosen2"],2,$kuota_dosen["dosen_kuota2"]-1);

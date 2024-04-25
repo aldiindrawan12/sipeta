@@ -38,6 +38,9 @@ class Mahasiswa extends CI_Controller {
         if ($ta){
             $dosen1 = $this->getmodel->getDosenByNip($ta["dosen1"]);
             $dosen2 = $this->getmodel->getDosenByNip($ta["dosen2"]);
+            if(!$dosen2){
+                $dosen2 = $this->getmodel->getDosenByNipLuar($ta["dosen2"]);
+            }
         } else {
             $dosen1 = NULL;
             $dosen2 = NULL;        
@@ -73,6 +76,7 @@ class Mahasiswa extends CI_Controller {
         $akun_email = $_SESSION["akun_email"];
         $mhs = $this->getmodel->getAkunByEmail($akun_email);
         $dosen = $this->getmodel->getAllDosenTersedia();
+        $dosen_luar = $this->getmodel->getAllDosenLuar();
         $kk = $this->getmodel->getAllKk();
         $periode = $this->getmodel->getPeriode();
         if(!$periode){
@@ -83,6 +87,7 @@ class Mahasiswa extends CI_Controller {
             'akun_email' => $akun_email,
             'akun' => $mhs,
             'dosen' => $dosen,
+            'dosen_luar' => $dosen_luar,
             'periode' => $periode,
             'kk' => $kk,
             'page' => "Daftar Tugas Akhir"
@@ -100,13 +105,11 @@ class Mahasiswa extends CI_Controller {
         $mhs = $this->getmodel->getAkunByEmail($akun_email);
         $periode = $this->getmodel->getPeriode();
         //SET STATUS TA
-        if($this->input->post("ta_status") == "Dispensasi" || $this->input->post("ta_tim") == "Tim"){
-            $status = "Diterima";
-            $dosen1_status = "Diterima";
+        // if($this->input->post("ta_status") == "Dispensasi" || $this->input->post("ta_tim") == "Tim"){
+        if(substr($this->input->post("dosen2"),-5)=="-luar"){
             $dosen2_status = "Diterima";
+            $dosen2 = str_replace($this->input->post("dosen2"),"-luar","");
         }else{
-            $status = "Diajukan";
-            $dosen1_status = "Diajukan";
             $dosen2_status = "Diajukan";
         }
         // DRAFT TA FILE
@@ -148,14 +151,14 @@ class Mahasiswa extends CI_Controller {
             'ta_id' => "TA".$mhs["mhs_nim"]."_".$periode["periode_id"],
             'mhs_nim' => $mhs["mhs_nim"],
             'dosen1' => $this->input->post("dosen1"),
-            'dosen2' => $this->input->post("dosen2"),
-            'dosen1_status' => $dosen1_status,
+            'dosen2' => $dosen2,
+            'dosen1_status' => "Diajukan",
             'dosen2_status' => $dosen2_status,
             'ta_judul' => $this->input->post("ta_judul"),
             'ta_status' => $this->input->post("ta_status"),
             'ta_kebaharuan' => $this->input->post("ta_kebaharuan"),
             'kk_id' => $this->input->post("kk_id"),
-            'ta_progres' => $status,
+            'ta_progres' => "Diajukan",
             'ta_created_at' => date("y-m-d H:i:s"),
             'ta_asal' => $this->input->post("ta_asal"),
             'ta_pkl' => $this->input->post("ta_pkl"),

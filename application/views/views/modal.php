@@ -186,7 +186,6 @@
                                                 <input class="form-control" id="dosen_telp" name="dosen_telp" required placeholder="Telp/Wa"></input>
                                             </div>
                                             <div class="form-group">
-                                                <label for="block-form2-username">Bidang Keahlian</label>
                                                 <select class="form-control" id="kk_id" name="kk_id">
                                                     <?php foreach($kk as $value){?>
                                                         <option value="<?= $value["kk_id"]?>"><?= $value["kk_nama"]?></option>
@@ -229,6 +228,56 @@
             </div>
         </div>
         <!-- END MODAL TAMBAH DOSEN -->
+        <!-- MODAL TAMBAH DOSEN LUAR -->
+        <div class="modal" id="modal-add-dosen-luar" tabindex="-1" role="dialog" aria-labelledby="modal-update-status" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-primary-dark">
+                            <h3 class="block-title">Tambah Data Dosen Luar</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-fw fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <form action="<?= base_url('index.php/Koordinator/postdosenluar'); ?>" method="POST">
+                        <div class="block-content font-size-sm">
+                            <div class="block">
+                                <div class="block-content">
+                                    <div class="row justify-content-center py-sm-3 py-md-5">
+                                        <div class="col-sm-10 col-md-8">
+                                            <div class="form-group">
+                                                <input class="form-control" id="dosen_nip" name="dosen_nip" required placeholder="NIP"></input>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" id="dosen_nama" name="dosen_nama" required placeholder="Nama"></input>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" id="dosen_telp" name="dosen_telp" required placeholder="Telp/Wa"></input>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" id="dosen_email" name="dosen_email" required placeholder="Email"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-content block-content-full text-right border-top">
+                            <button type="reset" class="btn btn-sm btn-secondary">
+                                Reset
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Simpan
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL TAMBAH DOSEN LUAR -->
         <!-- MODAL UPDATE DOSEN -->
         <div class="modal" id="modal-update-dosen" tabindex="-1" role="dialog" aria-labelledby="modal-update-status" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -308,6 +357,55 @@
             </div>
         </div>
         <!-- END MODAL UPDATE DOSEN -->
+        <!-- MODAL Maks Pembimbing -->
+        <div class="modal" id="view-maks-pemb" tabindex="-1" role="dialog" aria-labelledby="modal-ubah-password" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-primary-dark">
+                            <h3 class="block-title">Batas Maksimal Bimbingan</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-fw fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <form action="<?= base_url('index.php/koordinator/updatemakspemb'); ?>" method="POST">
+                        <div class="block-content font-size-sm">
+                            <div class="block">
+                                <div class="block-content">
+                                    <div class="row justify-content-center py-sm-3 py-md-5">
+                                        <div class="col-sm-10 col-md-8">
+                                            <input class="form-control" id="dosen_nip_max" name="dosen_nip_max" required autocomplete="off" hidden></input>
+                                            <div class="form-group">
+                                                <label for="dosen_max1">Maksimal Bimbingan 1</label>
+                                                <div class="font-size-sm text-dark"><em>Isi dengan angka "0" untuk maksimal bimbingan</em></div>
+                                                <input class="form-control" id="dosen_max1" name="dosen_max1" required autocomplete="off"></input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dosen_max2">Maksimal Bimbingan 2</label>
+                                                <div class="font-size-sm text-dark"><em>Isi dengan angka "0" untuk maksimal bimbingan</em></div>
+                                                <input class="form-control" id="dosen_max2" name="dosen_max2" required autocomplete="off"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-content block-content-full text-right border-top">
+                            <button type="reset" class="btn btn-sm btn-secondary">
+                                Reset
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Simpan
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL Maks Pembimbing -->
         <?php }?>
         <!-- MODAL UBAH PASSWORD -->
         <div class="modal" id="modal-ubah-password" tabindex="-1" role="dialog" aria-labelledby="modal-ubah-password" aria-hidden="true">
@@ -424,6 +522,10 @@
                                                 <i class="col-sm-12 col-md-12 mb-0 font-w600 text-left" id="ta_kebaharuan">: </i>
                                             </div>
                                             <div class="row mb-2">
+                                                <p class="col-sm-12 col-md-12 mb-0 font-w600 text-left">Catatan Koordinator dan Pembimbing</p>
+                                                <i class="col-sm-12 col-md-12 mb-0 font-w600 text-left" id="ta_catatan_view"></i>
+                                            </div>
+                                            <div class="row mb-2">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Draft Tugas Akhir</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a id="ta_draft" target="_blank" href="">Buka</a></p>
                                             </div>
@@ -431,10 +533,12 @@
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dokumen Pendukung</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a id="ta_pendukung" target="_blank" href="">Buka</a></p>
                                             </div>
+                                            <?php if($ta["ta_dispensasi"]!=NULL){?>
                                             <div class="row mb-2">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dispensasi</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a id="ta_dispensasi" target="_blank" href="">Buka</a></p>
                                             </div>
+                                            <?php }?>
                                             <div class="row mb-2">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Status Saat Ini</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left" id="dosen_status"></p>

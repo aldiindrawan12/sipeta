@@ -119,6 +119,10 @@
                                                                     <p class="col-sm-12 col-md-12 mb-0 font-w600 text-left"><i><?= $ta["ta_kebaharuan"]?></i></p>
                                                                 </div>
                                                                 <div class="row mb-2">
+                                                                    <p class="col-sm-12 col-md-12 mb-0 font-w600 text-left">Catatan Koordinator dan Pembimbing</p>
+                                                                    <p class="col-sm-12 col-md-12 mb-0 font-w600 text-left"><i><?= $ta["ta_catatan"]?></i></p>
+                                                                </div>
+                                                                <div class="row mb-2">
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Draft Tugas Akhir</p>
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a target="_blank" href="<?= base_url("index.php/mahasiswa/openpdf?url=").$ta["ta_draft"]?>">Buka</a></p>
                                                                 </div>
@@ -126,10 +130,12 @@
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dokumen Pendukung</p>
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a  href="<?= $ta["ta_pendukung"]?>">Buka</a></p>
                                                                 </div>
+                                                                <?php if($ta["ta_dispensasi"]!=NULL){?>
                                                                 <div class="row mb-2">
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dispensasi</p>
                                                                     <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a target="_blank" href="<?= base_url("index.php/mahasiswa/openpdf?url=").$ta["ta_dispensasi"]?>">Buka</a></p>
                                                                 </div>
+                                                                <?php }?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -145,18 +151,20 @@
                                 <div class="block-header">
                                     <h3 class="block-title">Dosen Teknik Informatika</h3>
                                     <?php if($_SESSION["akun_role"]=="Koordinator"){?>
-                                        <div class="block-options"><button class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal-add-dosen"><i class="far fa-plus-square"></i></button></div>
+                                        <div class="block-options"><button class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal-add-dosen"><i class="far fa-plus-square"></i> Dosen IF</button></div>
+                                        <div class="block-options"><button class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal-add-dosen-luar"><i class="far fa-plus-square"></i> Dosen Luar</button></div>
                                     <?php }?>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter table-striped table-bordered" width="100%" id="dosen-tabel">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" style="width: 5%;">#</th>
-                                                <th class="text-center" style="width:35%">Nama</th>
-                                                <th class="text-center" style="width: 45%;">Bidang Keahlian</th>
+                                                <th class="text-center" style="width: 5%;"><small>#</small></th>
+                                                <th class="text-center" style="width:25%"><small>Nama</small></th>
+                                                <th class="text-center" style="width: 25%;"><small>Bidang Keahlian</small></th>
                                                 <?php if($_SESSION["akun_role"]=="Koordinator"){?>
-                                                    <th class="text-center" style="width: 15%;">Aksi</th>
+                                                    <th class="text-center" style="width: 15%;"><small>Bimb. 1 / Bimb. 2</small></th>
+                                                    <th class="text-center" style="width: 15%;"><small>Aksi</small></th>
                                                 <?php }?>
                                             </tr>
                                         </thead>

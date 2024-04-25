@@ -61,6 +61,9 @@ class DatatablesModel extends CI_model
                 "no"=>$n,
                 "dosen_nip"=>$record->dosen_nip,
                 "dosen_nama"=>$record->dosen_nama,
+                "dosen_max1"=>$record->dosen_max1,
+                "dosen_max2"=>$record->dosen_max2,
+                "dosen_ketersediaan"=>$record->dosen_ketersediaan,
                 "kk_nama"=>$record->kk_nama,
             ); 
             $n++;
@@ -149,6 +152,9 @@ class DatatablesModel extends CI_model
         foreach($records as $record ){
             $pembimbing1 = $this->db->get_where("sipeta_dosen",array("dosen_nip"=>$record->dosen1))->row_array();
             $pembimbing2 = $this->db->get_where("sipeta_dosen",array("dosen_nip"=>$record->dosen2))->row_array();
+            if(count($pembimbing2)==0){
+                $pembimbing2 = $this->db->get_where("sipeta_dosen_luar",array("dosen_nip"=>$record->dosen2))->row_array();
+            }
             $data[] = array( 
                 "no"=>$n,
                 "ta_id"=>$record->ta_id,

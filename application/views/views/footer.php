@@ -30,6 +30,7 @@
             $(document).ready(function() {
                 var insert_proposal = '<?= $this->session->flashdata('insert_proposal'); ?>';
                 var update_dosen = '<?= $this->session->flashdata('update-dosen'); ?>';
+                var update_max_dosen = '<?= $this->session->flashdata('update-max-dosen'); ?>';
                 var status_redirect = '<?= $this->session->flashdata('status-redirect'); ?>';
                 var status_ploting = '<?= $this->session->flashdata('status-ploting'); ?>';
                 var status_kunci = '<?= $this->session->flashdata('status-kunci'); ?>';
@@ -65,7 +66,7 @@
                     Swal.fire({
                             title: "Selesai",
                             icon: "success",
-                            html: "Proses Kunci Data Selesai <br> Arsip Pedaftaran Dapat Dilihat Pada Menu Riwayat Pendaftaran",
+                            html: "Proses Kunci Data Selesai <br> Arsip Pedaftaran Dapat Dilihat Pada Menu Arsip Pendaftaran",
                             type: "success"
                         });
                 }
@@ -119,6 +120,15 @@
                         title: "Berhasil",
                         icon: "success",
                         text: "Data Dosen Berhasil Diperbaharui",
+                        type: "success",
+                        timer: 4500
+                    });
+                }
+                if(update_max_dosen == "Berhasil"){
+                    Swal.fire({
+                        title: "Berhasil",
+                        icon: "success",
+                        text: "Data Maksimal Bimbingan Dosen Berhasil Diperbaharui",
                         type: "success",
                         timer: 4500
                     });
@@ -328,43 +338,88 @@
                         {
                             "data": "dosen_nip",
                             render: function(data, type, row) {
-                                let html = row["no"];
+                                let html = "<small>"+row["no"]+"</small>";
                                 return html;
                             }
                         },
                         {
-                            "data": "dosen_nama"
+                            "data": "dosen_nama",
+                            "orderable": false,
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "<small>"+data+"</small>";
+                                return html;
+                            }
                         },
                         {
-                            "data": "kk_nama"
+                            "data": "kk_nama",
+                            "orderable": false,
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "<small>"+data+"</small>";
+                                return html;
+                            }
                         },
                         <?php if($page == "Dashboard Koordinator"){?>
+                        {
+                            "data": "dosen_max1",
+                            "orderable": false,
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "";
+                                if(row["dosen_ketersediaan"]=="Tersedia"){
+                                    if(data=="0"){
+                                        if(row["dosen_max2"]=="0"){
+                                            html += "<a onclick='view_maks_pemb(`"+data+"`,`"+row["dosen_max2"]+"`,`"+row["dosen_nip"]+"`)' data-toggle='modal' data-target='#view-maks-pemb' class='btn btn-sm btn-outline-primary'><small>Maks. / Maks.</small>  <i class='far fa-edit'></i></a>";
+                                        }else{
+                                            html += "<a onclick='view_maks_pemb(`"+data+"`,`"+row["dosen_max2"]+"`,`"+row["dosen_nip"]+"`)' data-toggle='modal' data-target='#view-maks-pemb' class='btn btn-sm btn-outline-primary'><small>Maks. / "+row["dosen_max2"]+"</small>  <i class='far fa-edit'></i></a>";
+                                        }
+                                    }else{
+                                        if(row["dosen_max2"]=="0"){
+                                            html += "<a onclick='view_maks_pemb(`"+data+"`,`"+row["dosen_max2"]+"`,`"+row["dosen_nip"]+"`)' data-toggle='modal' data-target='#view-maks-pemb' class='btn btn-sm btn-outline-primary'><small>"+data+" / Maks.</small>  <i class='far fa-edit'></i></a>";
+                                        }else{
+                                            html += "<a onclick='view_maks_pemb(`"+data+"`,`"+row["dosen_max2"]+"`,`"+row["dosen_nip"]+"`)' data-toggle='modal' data-target='#view-maks-pemb' class='btn btn-sm btn-outline-primary'><small>"+data+" / "+row["dosen_max2"]+"</small>  <i class='far fa-edit'></i></a>";
+                                        }
+                                    }
+                                }else{
+                                    html += "-";
+                                }
+                                return html;
+                            }
+                        },
                         {
                             "data": "dosen_nip",
                             className: 'text-center',
                             "orderable": false,
                             render: function(data, type, row) {
-                                    let html =
-                                    "<div class='btn-group'>"+
-                                        "<button data-toggle='modal' data-target='#modal-view-dosen' onclick='viewdosen(`"+data+"`)' type='button' class='btn btn-sm btn-light bg-grey'>"+
-                                            "<i class='far fa-eye'></i>"+
-                                        "</button>";
-                                        html +=    "</div><div class='btn-group'>"+
-                                                "<button data-toggle='modal' data-target='#modal-update-dosen' onclick='updatedosen(`"+data+"`)' type='button' class='btn btn-sm btn-light bg-grey'>"+
-                                                    "<i class='far fa-edit'></i>"+
-                                                "</button>"+
-                                            "</div><div class='btn-group'>"+
+                                let html =
+                                "<div class='btn-group'>"+
+                                "<button data-toggle='modal' data-target='#modal-view-dosen' onclick='viewdosen(`"+data+"`)' type='button' class='btn btn-sm btn-light bg-grey'>"+
+                                "<i class='far fa-eye'></i>"+
+                                "</button>";
+                                html +=    "</div><div class='btn-group'>"+
+                                "<button data-toggle='modal' data-target='#modal-update-dosen' onclick='updatedosen(`"+data+"`)' type='button' class='btn btn-sm btn-light bg-grey'>"+
+                                "<i class='far fa-edit'></i>"+
+                                "</button></div>";
+                                if(data!="199303142019031018"){
+                                            html += "<div class='btn-group'>"+
                                                 "<a href='javascript:void(0)' onclick='deletedosen(`"+row["dosen_nama"]+"`,`"+data+"`)' class='btn btn-sm btn-light bg-grey'>"+
                                                     "<i class='far fa-trash-alt'></i>"+
                                                 "</a>"+
                                             "</div>";
-                                    return html;
+                                }
+                                return html;
                                 }
                             },
                         <?php }?>
                     ],
                 });
             });
+            function view_maks_pemb(now,now2,nip){
+                $("#dosen_max1").val(now);
+                $("#dosen_max2").val(now2);
+                $("#dosen_nip_max").val(nip);
+            }
         </script>
         <!-- end datatables dosen -->
 
@@ -655,7 +710,8 @@
                         }else{
                             $("#dosen_status").text(": "+data["ta_progres"]);
                         }
-                        $("#ta_catatan").val(data["ta_catatan"]);
+                        $("#ta_catatan_view").text(data["ta_catatan"]);
+                        // $("#ta_catatan").val(data["ta_catatan"]);
                         $("#ta_judul").text('"'+data["ta_judul"]+'"');
                         $("#mhs_nim").text(': '+data["mhs_nim"]);
                         $("#mhs_nama").text(': '+data["mhs_nama"]);
@@ -832,12 +888,30 @@
                         {
                             "data": "ta_status",
                             "orderable": false,
-                            className : "text-center"
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "";
+                                if(data=="Dispensasi"){
+                                    html += "<small class='text-danger'>"+data+"</small>";
+                                }else{
+                                    html += "<small>"+data+"</small>";
+                                }
+                                return html;
+                            }
                         },
                         {
                             "data": "ta_tim",
                             "orderable": false,
-                            className : "text-center"
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "";
+                                if(data=="Tim"){
+                                    html += "<small class='text-danger'>"+data+"/Capstone</small>";
+                                }else{
+                                    html += "<small>"+data+"</small>";
+                                }
+                                return html;
+                            }
                         },
                         {
                             "data": "dosen"+<?= $tipe?>+"_status",
@@ -846,9 +920,11 @@
                             render: function(data, type, row) {
                                 let html = "";
                                 if(data=="Diajukan"){
-                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><small><i class='fa fa-question mr-1 text-warning'></i></small><i class='far fa-eye text-dark'></i></a>";;
+                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-warning'><small><i class='fa fa-question mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a>";;
+                                }else if(data=="Diterima"){
+                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-success'><small><i class='fa fa-check mr-1 text-light'></i></small><i class='far fa-eye'></i></a>";
                                 }else{
-                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><small><i class='fa fa-check mr-1 text-success'></i></small><i class='far fa-eye text-dark'></i></a>";
+                                    html += "<a onclick='viewdaftar(`"+row["ta_id"]+"`,"+<?= $tipe?>+")' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-danger'><small><i class='fa fa-times mr-1 text-light'></i></small><i class='far fa-eye'></i></a>";
                                 }
                                 return html;
                             }
@@ -915,7 +991,6 @@
         <!-- view pendaftar -->
         <script>
             function viewdaftar(id,tipe){
-                document.getElementById("btn-tolak").style.display = "none";
                 <?php if($periode["periode_progress"]=="Verifikasi"){?>
                     document.getElementById("btn-validasi").style.display = "block";
                 <?php }else{?>
@@ -923,6 +998,7 @@
                 <?php }?>
                 $("#verif_title").text("Verifikasi Pembimbing "+tipe);
                 $("#btn-acc").attr("onclick","accbimbingan('"+id+"',"+tipe+",'TERIMA')");
+                $("#btn-tolak").attr("onclick","accbimbingan('"+id+"',"+tipe+",'TOLAK')");
                 $("#btn-batal").attr("onclick","accbimbingan('"+id+"',"+tipe+",'MEMBATALKAN')");
                 $.ajax({
                     type: "GET",
@@ -937,22 +1013,27 @@
                             if(data["dosen"+tipe+"_status"]=="Diterima"){
                                 document.getElementById("btn-acc").style.display = "none";
                                 document.getElementById("btn-batal").style.display = "block";
+                                document.getElementById("btn-tolak").style.display = "block";
                             }else if(data["dosen"+tipe+"_status"]=="Ditolak"){
                                 document.getElementById("btn-acc").style.display = "block";
                                 document.getElementById("btn-batal").style.display = "block";
+                                document.getElementById("btn-tolak").style.display = "none";
                             }else{
                                 document.getElementById("btn-batal").style.display = "none";
                                 document.getElementById("btn-acc").style.display = "block";
+                                document.getElementById("btn-tolak").style.display = "block";
                             }
                         }else{
                             document.getElementById("btn-acc").style.display = "none";
                             document.getElementById("btn-batal").style.display = "none";
+                            document.getElementById("btn-tolak").style.display = "none";
                         }
                         if(data["dosen"+tipe+"_status"]=="Diajukan"){
                             $("#dosen_status").text(": Menunggu Verifikasi");
                         }else{
                             $("#dosen_status").text(": "+data["dosen"+tipe+"_status"]);
                         }
+                        $("#ta_catatan_view").text(data["ta_catatan"]);
                         $("#ta_catatan").val(data["ta_catatan"]);
                         $("#ta_judul").text('"'+data["ta_judul"]+'"');
                         $("#mhs_nim").text(': '+data["mhs_nim"]);

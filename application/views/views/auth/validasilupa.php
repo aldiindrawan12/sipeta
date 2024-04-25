@@ -24,6 +24,9 @@
                                         </h2>
                                     </div>
                                     <!-- END Header -->
+                                    <p class="font-size-sm text-muted">
+                                        <strong>Silakan Cek Kode Otp Yang Dikirim ke Email <?= substr($akun["akun_email"],0,7)?>********itera.ac.id</strong>
+                                    </p>
                                     <form class="js-validation-signin" action="newpassword?email=<?= $akun["akun_email"]?>" method="POST" onsubmit="return validateOTP(<?= $akun['akun_otp']?>)">
                                         <div class="form-group">
                                             <div class="input-group">

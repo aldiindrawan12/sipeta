@@ -34,16 +34,19 @@
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Sebagai</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: Pembimbing 2</p>
                                             </div>
-                                            <div class="row mb-2 w-50">
+                                            <!-- <div class="row mb-2 w-50">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Maksimal Bimbingan</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <?= $kuota?></p>
-                                            </div>
+                                            </div> -->
                                             <div class="row mb-2 w-50">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Sisa Kuota Bimbingan</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <?= $akun["dosen_kuota2"]?></p>
                                             </div>
                                             <p class="font-size-sm text-muted">
-                                                Catatan : Utamakan verifikasi pendaftar dengan status judul <strong>DISPENSASI</strong> dan tipe judul <strong>TIM/CAPSTONE</strong>
+                                                Catatan : Utamakan verifikasi pendaftar dengan status judul <strong class="text-danger">DISPENSASI</strong> dan tipe judul <strong class="text-danger">TIM/CAPSTONE</strong><br>
+                                                <a class='btn btn-sm btn-outline-primary btn-success'><small><i class='fa fa-check mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Diterima
+                                                <a class='btn btn-sm btn-outline-primary btn-warning'><small><i class='fa fa-question mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Menunggu
+                                                <a class='btn btn-sm btn-outline-primary btn-danger'><small><i class='fa fa-times mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Ditolak
                                             </p>
                                             <table class="table table-vcenter table-striped table-bordered" id="daftar-saya-tabel">
                                                 <thead class="bg-secondary text-white">

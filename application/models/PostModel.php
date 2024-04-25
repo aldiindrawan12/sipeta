@@ -17,4 +17,7 @@ class PostModel extends CI_model
     public function insertDosen($data){
         return $this->db->insert("sipeta_dosen",$data);
     }
+    public function insertDosenLuar($data){
+        return $this->db->insert("sipeta_dosen_luar",$data);
+    }
 }

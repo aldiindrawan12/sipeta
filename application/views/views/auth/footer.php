@@ -165,7 +165,7 @@
                         Swal.fire({
                             title: 'Cek Kembali Email Anda',
                             icon:'error',
-                            text: 'Harap Gunakan Email Itera'
+                            text: 'Harap Gunakan Email Mahasiswa Itera'
                         });
                         return false;
                     }

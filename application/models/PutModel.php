@@ -8,6 +8,13 @@ class PutModel extends CI_model
         if($status == "TERIMA"){
             $status = "Diterima";
             $kuota_now = $kuota["dosen_kuota".$tipe]-1;
+        }else if($status=="TOLAK"){
+            $status = "Ditolak";
+            if($ta["dosen".$tipe."_status"]=="Diterima"){
+                $kuota_now = $kuota["dosen_kuota".$tipe]+1;
+            }else{
+                $kuota_now = $kuota["dosen_kuota".$tipe];
+            }
         }else{
             $status = "Diajukan";
             if($ta["dosen".$tipe."_status"]=="Diterima"){
@@ -95,6 +102,11 @@ class PutModel extends CI_model
         $this->db->where("dosen_nip",$nip);
         return $this->db->update("sipeta_dosen");
     }
+    public function updateMaxDosen($dosen){
+        $this->db->set($dosen);
+        $this->db->where("dosen_nip",$dosen["dosen_nip"]);
+        return $this->db->update("sipeta_dosen");
+    }
     public function updatePembimbing($dosen,$nip){
         $this->db->set("dosen1",$dosen);
         $this->db->where("dosen1",$nip);
@@ -120,12 +132,12 @@ class PutModel extends CI_model
         return $this->db->update("sipeta_periode");
     }
 
-    public function validasiPeriode($periode_id,$kuota){
-        $this->db->set("dosen_kuota1",$kuota);
-        $this->db->set("dosen_kuota2",$kuota);
-        $this->db->where("dosen_ketersediaan","Tersedia");
+    public function setMaksimalBimbingan($nip,$id,$kuota){
+        $this->db->set("dosen_kuota".$id,$kuota);
+        $this->db->where("dosen_nip",$nip);
         $this->db->update("sipeta_dosen");
-
+    }
+    public function validasiPeriode($periode_id,$kuota){
         $this->db->set("ta_progres","Proses Verifikasi");
         $this->db->where("periode_id",$periode_id);
         $this->db->where("ta_progres","Proses Validasi");

@@ -36,12 +36,37 @@ class Auth extends CI_Controller {
                 $password = $akun["akun_password"];
                 $akun_role = $akun["akun_role"];
                 if($akun_password == $password){
-                    $_SESSION["akun_role"] = $akun_role;
-                    $_SESSION["akun_email"] = $akun["akun_email"];
-                    $_SESSION["user_id"] = $akun["user_id"];
-                    $this->putmodel->setAkunStatus('Online',$akun["akun_email"]);
-                    $this->session->set_flashdata('status-login', 'Berhasil');
-                    redirect(base_url("index.php/".$akun_role));
+                    if($akun["akun_verifikasi"]=="True"){
+                        $_SESSION["akun_role"] = $akun_role;
+                        $_SESSION["akun_email"] = $akun["akun_email"];
+                        $_SESSION["user_id"] = $akun["user_id"];
+                        $this->putmodel->setAkunStatus('Online',$akun["akun_email"]);
+                        $this->session->set_flashdata('status-login', 'Berhasil');
+                        redirect(base_url("index.php/".$akun_role));
+                    }else{
+                        $otp = rand(10000000,99999999);
+                        $config = [
+                            'protocol' => "smtp",
+                            'smtp_host' => "ssl://smtp.googlemail.com",
+                            'smtp_user' => "aldiindrawan04@gmail.com",
+                            'smtp_pass' => "hnyd ppva eekl dkxj",
+                            'mailtype' => "html",
+                            'smtp_port' => 465,
+                            'charset' => "utf-8",
+                            'newline' => "\r\n"
+                        ];
+                        $this->email->initialize($config);
+                        $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
+                        $this->email->to($akun["akun_email"]);
+                        $this->email->subject('Kode OTP Registrasi');
+                        $this->email->message('Berikut kode OTP yang dapat digunakan dalam registrasi<br><br>'.$otp);
+                        //Send mail
+                        if($this->email->send()){
+                            $this->putmodel->updateOTP($akun["akun_email"],$otp);
+                            $this->session->set_flashdata('status-verifikasi', 'False');
+                            redirect(base_url("index.php/auth/validasi?state=Verifikasi&email=".$akun["akun_email"]));
+                        }
+                    }
                 }else{
                     $this->session->set_flashdata('status-login', 'Password');
                     redirect(base_url());                
@@ -116,7 +141,7 @@ class Auth extends CI_Controller {
                 if($this->email->send()){
                     $this->postmodel->insertMhs($mhs);
                     $this->postmodel->insertAkun($akun);
-                    redirect(base_url("index.php/auth/validasi?email=".$this->input->post("akun_email")));
+                    redirect(base_url("index.php/auth/validasi?state=Registrasi&email=".$this->input->post("akun_email")));
                 }
 
             }
@@ -131,6 +156,7 @@ class Auth extends CI_Controller {
         //fungsi untuk menampilkan halaman validasi OTP
             public function validasi(){
                 $email = $this->input->get("email");
+                $data["state"] = $this->input->get("state");
                 $data["akun"] = $this->getmodel->getAkunByEmail($email);
                 $data["page"] = "OTP";
                 $this->load->view('views/header',$data);

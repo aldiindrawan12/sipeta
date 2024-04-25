@@ -35,7 +35,7 @@
                                                     <textarea class="form-control" id="ta_judul" name="ta_judul" rows="4" style="height: 125px;" required></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="kk_id">Tujuan Kelompok Keahlian Sesuai Judul</label>
+                                                    <label for="kk_id">Kelompok Keahlian</label>
                                                     <select class="form-control" id="kk_id" name="kk_id">
                                                         <?php foreach($kk as $value){
                                                             echo "<option value='".$value["kk_id"]."'>".$value["kk_nama"]."</option>";
@@ -76,6 +76,9 @@
                                                     <select class="form-control" id="dosen2" name="dosen2" >
                                                         <?php foreach($dosen as $value){
                                                             echo "<option value='".$value["dosen_nip"]."'>".$value["dosen_nama"]."</option>";
+                                                        }?>
+                                                        <?php foreach($dosen_luar as $value){
+                                                            echo "<option value='".$value["dosen_nip"]."-luar'>".$value["dosen_nama"]."</option>";
                                                         }?>
                                                     </select>
                                                 </div>

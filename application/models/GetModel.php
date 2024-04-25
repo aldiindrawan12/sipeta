@@ -35,9 +35,27 @@ class GetModel extends CI_model
         $this->db->join("sipeta_akun","sipeta_akun.user_id=sipeta_dosen.dosen_nip",'left');
         return $this->db->get_where("sipeta_dosen",array("dosen_status"=>"Aktif"))->result_array();
     }
+    public function getAllDosenLuar(){
+        return $this->db->get("sipeta_dosen_luar")->result_array();
+    }
+    public function getDosenByNipLuar($dosen_nip){
+        return $this->db->get_where("sipeta_dosen_luar",array("dosen_nip"=>$dosen_nip))->row_array();
+    }
     public function getAllDosenTersedia(){
         $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_dosen.kk_id",'left');
         $this->db->join("sipeta_akun","sipeta_akun.user_id=sipeta_dosen.dosen_nip",'left');
+        return $this->db->get_where("sipeta_dosen",array("dosen_ketersediaan"=>"Tersedia","dosen_status"=>"Aktif"))->result_array();
+    }
+    public function getAllDosenTersediaMaksimal1(){
+        $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_dosen.kk_id",'left');
+        $this->db->join("sipeta_akun","sipeta_akun.user_id=sipeta_dosen.dosen_nip",'left');
+        $this->db->where("dosen_max1","0");
+        return $this->db->get_where("sipeta_dosen",array("dosen_ketersediaan"=>"Tersedia","dosen_status"=>"Aktif"))->result_array();
+    }
+    public function getAllDosenTersediaMaksimal2(){
+        $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_dosen.kk_id",'left');
+        $this->db->join("sipeta_akun","sipeta_akun.user_id=sipeta_dosen.dosen_nip",'left');
+        $this->db->where("dosen_max2","0");
         return $this->db->get_where("sipeta_dosen",array("dosen_ketersediaan"=>"Tersedia","dosen_status"=>"Aktif"))->result_array();
     }
     public function getDosenByNip($dosen_nip){
@@ -66,6 +84,13 @@ class GetModel extends CI_model
         $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_ta.kk_id",'left');
         $this->db->join("sipeta_mhs","sipeta_mhs.mhs_nim=sipeta_ta.mhs_nim",'left');
         $this->db->where("sipeta_ta.ta_progres","Proses Validasi");
+        return $this->db->get_where("sipeta_ta",array("periode_id"=>$periode_id))->result_array();
+    }
+    public function getAllPendaftarIf($periode_id){
+        $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_ta.kk_id",'left');
+        $this->db->join("sipeta_mhs","sipeta_mhs.mhs_nim=sipeta_ta.mhs_nim",'left');
+        $this->db->where("sipeta_ta.ta_progres","Proses Validasi");
+        $this->db->where("sipeta_ta.dosen2_status","Diajukan");
         return $this->db->get_where("sipeta_ta",array("periode_id"=>$periode_id))->result_array();
     }
     public function getAllPendaftarDownload($periode_id){

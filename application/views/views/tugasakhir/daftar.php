@@ -44,7 +44,7 @@
                                                     <div class="font-size-6 font-w400 text-center"><strong><i>Tahap Akhir Proses Pendaftaran</i></strong></div>
                                                 </div>
                                                 <button class="btn btn-block btn-primary m-auto" onclick="verifikasi_kunci()">
-                                                    Kunci Data dan Unduh Data
+                                                    Kunci Data
                                                 </button>
                                         <?php } else if($periode["periode_progress"]=="Validasi"){?>
                                         <div class="block-content block-content-full">

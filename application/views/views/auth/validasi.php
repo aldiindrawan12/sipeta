@@ -24,6 +24,13 @@
                                         </h2>
                                     </div>
                                     <!-- END Header -->
+                                    <p class="font-size-sm text-muted">
+                                        <?php if($state == "Verifikasi"){?>
+                                            <strong>Akun Anda Belum Terverifikasi, Silakan Cek Kode Otp Yang Dikirim ke Email <?= substr($akun["akun_email"],0,7)?>********itera.ac.id</strong>
+                                        <?php }else{?>
+                                            <strong>Silakan Cek Kode Otp Yang Dikirim ke Email <?= substr($akun["akun_email"],0,7)?>********itera.ac.id</strong>
+                                        <?php }?>
+                                    </p>
                                     <form class="js-validation-signin" action="postvalidasi?email=<?= $akun["akun_email"]?>" method="POST" onsubmit="return validateOTP(<?= $akun['akun_otp']?>)">
                                         <div class="form-group">
                                             <div class="input-group">

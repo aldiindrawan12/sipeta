@@ -21,8 +21,8 @@
                                         </h1>
                                         <h2 class="h6 font-w400 text-muted mb-3">
                                             SISTEM INFORMASI PENDAFTARAN TUGAS AKHIR INFORMATIKA
+                                            <p class="text-danger">Khusus Mahasiswa</p>
                                         </h2>
-                                        <!-- <p>Khusus Mahasiswa</p> -->
                                     </div>
                                     <!-- END Header -->
                                     <form class="" action="postregister" method="POST" onsubmit="return validateEmail()">
