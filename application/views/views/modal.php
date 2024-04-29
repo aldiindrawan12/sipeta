@@ -31,12 +31,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-file">
-                                                    <input type="text" class="js-datepicker form-control" id="periode_buka" name="periode_buka" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" placeholder="Tanggal Mulai" required autocomplete="off">
+                                                    <input type="text" class="js-datepicker form-control" id="periode_buka" name="periode_buka" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" placeholder="Tanggal Mulai" required autocomplete="off" onchange="cek_tanggal('periode_buka')">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-file">
-                                                    <input type="text" class="js-datepicker form-control" id="periode_tutup" name="periode_tutup" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" placeholder="Tanggal Selesai" required autocomplete="off">
+                                                    <input type="text" class="js-datepicker form-control" id="periode_tutup" name="periode_tutup" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" placeholder="Tanggal Selesai" required autocomplete="off" onchange="cek_tanggal('periode_tutup')">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,12 +79,12 @@
                                         <div class="col-sm-10 col-md-8">
                                             <div class="form-group">
                                                 <div class="custom-file">
-                                                    <input type="text" class="js-datepicker form-control" id="periode_buka" name="periode_buka" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy/mm/dd" placeholder="Tanggal Mulai" value="<?= substr($periode["periode_buka"],0,10)?>" required>
+                                                    <input type="text" class="js-datepicker form-control" id="periode_buka_update" name="periode_buka" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" placeholder="Tanggal Mulai" value="<?= substr($periode["periode_buka"],0,10)?>" required onchange="cek_tanggal_update('periode_buka_update')" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-file">
-                                                    <input type="text" class="js-datepicker form-control" id="periode_tutup" name="periode_tutup" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy/mm/dd" value="<?= substr($periode["periode_tutup"],0,10)?>" placeholder="Tanggal Berakhir" required>
+                                                    <input type="text" class="js-datepicker form-control" id="periode_tutup_update" name="periode_tutup" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="yyyy-mm-dd" value="<?= substr($periode["periode_tutup"],0,10)?>" placeholder="Tanggal Berakhir" required onchange="cek_tanggal_update('periode_tutup_update')" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>

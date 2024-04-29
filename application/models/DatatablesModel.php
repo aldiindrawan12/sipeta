@@ -152,7 +152,7 @@ class DatatablesModel extends CI_model
         foreach($records as $record ){
             $pembimbing1 = $this->db->get_where("sipeta_dosen",array("dosen_nip"=>$record->dosen1))->row_array();
             $pembimbing2 = $this->db->get_where("sipeta_dosen",array("dosen_nip"=>$record->dosen2))->row_array();
-            if(count($pembimbing2)==0){
+            if(!$pembimbing2){
                 $pembimbing2 = $this->db->get_where("sipeta_dosen_luar",array("dosen_nip"=>$record->dosen2))->row_array();
             }
             $data[] = array( 

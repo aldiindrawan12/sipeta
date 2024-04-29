@@ -624,14 +624,14 @@
                                 if(row["periode"]=="Validasi"){
                                     if(row["ta_progres"]=="Ditolak"){
                                         html = 
-                                        "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><i class='fa fa-times text-danger'></i> <i class='far fa-eye text-dark'></i></a>";
+                                        "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-danger'><i class='fa fa-times text-danger'></i> <i class='far fa-eye text-light'></i></a>";
                                     }else{
                                         html = 
-                                        "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><i class='fa fa-question text-warning'></i> <i class='far fa-eye text-dark'></i></a>";
+                                        "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-warning'><i class='fa fa-question text-warning'></i> <i class='far fa-eye text-light'></i></a>";
                                     }
                                 }else{    
                                     html = 
-                                    "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary'><i class='far fa-eye text-dark'></i></a>";
+                                    "<a onclick='viewdaftar(`"+data+"`)' data-toggle='modal' data-target='#view-daftar' class='btn btn-sm btn-outline-primary btn-primary'><i class='far fa-eye text-light'></i></a>";
                                 }
                                 return html;
                             }
@@ -726,7 +726,11 @@
                         $("#ta_kebaharuan").text(data["ta_kebaharuan"]);
                         $("#ta_pendukung").attr("href",data["ta_pendukung"]);
                         $("#ta_draft").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
-                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        if(data["ta_status"]=="Dispensasi"){
+                            $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        }else{
+                            $("#ta_dispensasi").removeAttr("href");
+                        }
                     }
                 });
             }
@@ -821,6 +825,48 @@
             }
         </script>
         <!-- end script confirm validasi -->   
+        <!-- script cek tanggal -->
+        <script>
+            function cek_tanggal_update(tipe){
+                input_tgl_mulai = $("#periode_buka_update").val();
+                input_tgl_tutup = $("#periode_tutup_update").val();
+                tgl_mulai = new Date();
+                tgl_mulai.setFullYear(input_tgl_mulai.split("-")[0],input_tgl_mulai.split("-")[1],input_tgl_mulai.split("-")[2]);
+                tgl_tutup = new Date();
+                tgl_tutup.setFullYear(input_tgl_tutup.split("-")[0],input_tgl_tutup.split("-")[1],input_tgl_tutup.split("-")[2]);
+                // alert(tgl_mulai);
+                if(tgl_mulai > tgl_tutup){
+                    $("#"+tipe).val("");
+                    Swal.fire({
+                            title: "Peringatan",
+                            icon: "warning",
+                            text: "Tanggal Mulai Tidak Boleh Lebih Cepat Dari Tanggal Selesai",
+                            type: "error",
+                            timer: 5000
+                        });
+                }
+            }
+            function cek_tanggal(tipe){
+                input_tgl_mulai = $("#periode_buka").val();
+                input_tgl_tutup = $("#periode_tutup").val();
+                tgl_mulai = new Date();
+                tgl_mulai.setFullYear(input_tgl_mulai.split("-")[0],input_tgl_mulai.split("-")[1],input_tgl_mulai.split("-")[2]);
+                tgl_tutup = new Date();
+                tgl_tutup.setFullYear(input_tgl_tutup.split("-")[0],input_tgl_tutup.split("-")[1],input_tgl_tutup.split("-")[2]);
+                // alert(tgl_mulai);
+                if(tgl_mulai > tgl_tutup){
+                    $("#"+tipe).val("");
+                    Swal.fire({
+                            title: "Peringatan",
+                            icon: "warning",
+                            text: "Tanggal Mulai Tidak Boleh Lebih Cepat Dari Tanggal Selesai",
+                            type: "error",
+                            timer: 5000
+                        });
+                }
+            }
+        </script>
+        <!-- end script cek tanggal -->
         <?php }?>
 
         <?php if($page=="Data Pendaftaran Saya"){?>
