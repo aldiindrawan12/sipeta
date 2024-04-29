@@ -66,34 +66,36 @@ class Koordinator extends CI_Controller {
             "dosen_telp" => $this->input->post("dosen_telp"),
             "kk_id" => $this->input->post("kk_id"),
             "dosen_ketersediaan" => $this->input->post("dosen_ketersediaan"),
-            "dosen_status" => "Aktif"
+            "dosen_status" => "Aktif",
+            "dosen_max1" => "0",
+            "dosen_max2" => "0"
         );
         $akun = array(
             "akun_email" => $this->input->post("akun_email"),
-            "akun_password" => "Dosen12345678",
+            "akun_password" => "Dosen1234",
             "user_id" => $this->input->post("dosen_nip"),
             "akun_status" => "Offline",
             "akun_role" => $this->input->post("akun_role"),
             "akun_verifikasi" => "True",
         );
-        // $config = [
-        //     'protocol' => "smtp",
-        //     'smtp_host' => "ssl://smtp.googlemail.com",
-        //     'smtp_user' => "aldiindrawan04@gmail.com",
-        //     'smtp_pass' => "hnyd ppva eekl dkxj",
-        //     'mailtype' => "html",
-        //     'smtp_port' => 465,
-        //     'charset' => "utf-8",
-        //     'newline' => "\r\n"
-        // ];
-        // $this->email->initialize($config);
-        // $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
-        // $this->email->to($akun["akun_email"]);
-        // $this->email->subject('Akun Sistem Informasi Pendaftaran Tugas Akhir');
-        // $this->email->message('Email anda sudah didaftarkan dalam sistem informasi pendaftaran dengan detail sebagai berikut :<br><br>'.
-        // '<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://sipeta.noz.co.id<br>Email : '.$akun["akun_email"].'<br>password : Dosen12345678');
-        // //Send mail
-        // $this->email->send()
+        $config = [
+            'protocol' => "smtp",
+            'smtp_host' => "ssl://smtp.googlemail.com",
+            'smtp_user' => "aldiindrawan04@gmail.com",
+            'smtp_pass' => "hnyd ppva eekl dkxj",
+            'mailtype' => "html",
+            'smtp_port' => 465,
+            'charset' => "utf-8",
+            'newline' => "\r\n"
+        ];
+        $this->email->initialize($config);
+        $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
+        $this->email->to($akun["akun_email"]);
+        $this->email->subject('Akun Sistem Informasi Pendaftaran Tugas Akhir');
+        $this->email->message('Email anda sudah didaftarkan dalam sistem informasi pendaftaran dengan detail sebagai berikut :<br><br>'.
+        '<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://sipeta.noz.co.id<br>Email : '.$akun["akun_email"].'<br>password : Dosen1234');
+        //Send mail
+        $this->email->send();
         
         $this->postmodel->insertDosen($dosen);
         $this->postmodel->insertAkun($akun);

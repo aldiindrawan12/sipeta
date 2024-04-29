@@ -533,12 +533,10 @@
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dokumen Pendukung</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a id="ta_pendukung" target="_blank" href="">Buka</a></p>
                                             </div>
-                                            <?php if($ta["ta_dispensasi"]!=NULL){?>
                                             <div class="row mb-2">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Dispensasi</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">: <a id="ta_dispensasi" target="_blank" href="">Buka</a></p>
                                             </div>
-                                            <?php }?>
                                             <div class="row mb-2">
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left">Status Saat Ini</p>
                                                 <p class="col-sm-12 col-md-6 mb-0 font-w600 text-left" id="dosen_status"></p>

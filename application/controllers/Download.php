@@ -30,6 +30,9 @@ class Download extends CI_Controller {
 				for($i=0;$i<count($daftar);$i++){
 					$pembimbing1 = $this->getmodel->getDosenByNip($daftar[$i]["dosen1"]);
 					$pembimbing2 = $this->getmodel->getDosenByNip($daftar[$i]["dosen2"]);
+					if(count($pembimbing2)==0){
+						$pembimbing2 = $this->getmodel->getDosenByNipLuar($daftar[$i]["dosen2"]);
+					}
 					$daftar[$i]["pembimbing1"] = $pembimbing1["dosen_nama"];
 					$daftar[$i]["pembimbing2"] = $pembimbing2["dosen_nama"];
 				}
@@ -120,8 +123,7 @@ class Download extends CI_Controller {
 	//fungsi tidak digunakan dalam aplikasi
 	//digunakan untuk force insert ta
 	public function baca(){
-		$mhs = $this->getmodel->getAllMhs();
-
+		$periode = $this->getmodel->getPeriode();
 		$dosen = array(
 			"Eko Dwi Nugroho" => "19910209 2020 1 279",
 			"Aidil Afriansyah" => "19910416 201903 1 015",
@@ -134,7 +136,7 @@ class Download extends CI_Controller {
 			"Muhammad Habib Alghifari" => "19910525 2022 03 1 002",
 			"Radhinka Bagaskara" => "19941127 202012 1 018",
 			"Winda Yulita" => "19930727 2022 03 2 022",
-			"Hira Laksmiwati" => "16117004202201902",
+			"Hira Laksmiwati" => "16117011202201976",
 			"Sarwono Sutikno" => "16117004202201902",
 		);
 		
@@ -156,19 +158,38 @@ class Download extends CI_Controller {
 			$highestColumn = $worksheet->getHighestColumn();	
 			$i=1;
 			for($row=2; $row<=$highestRow; $row++){
+				$nim = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
 				$judul = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
 				$nama_dosen = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+				$dispen = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+				$tim = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+				if($dispen == "dispen"){
+					$dispen = "Dispensasi";
+				}else{
+					$dispen = "Baru";
+				}
+				if($tim == "tim"){
+					$tim = "Tim";
+				}else{
+					$tim = "Regular";
+				}
 				if($k==2){
 					$pem1[] = array(
 						"judul" => $judul,
 						"pem" => $nama_dosen,
-						'nip' => $dosen[$nama_dosen]
+						'nip' => $dosen[$nama_dosen],
+						'nama' => $nama_dosen,
+						'nim' => $nim,
+						'dispen' => $dispen,
+						'tim' => $tim
 					);
 				}else if($k==3){
 					$pem2[] = array(
 						"judul" => $judul,
 						"pem" => $nama_dosen,
-						'nip' => $dosen[$nama_dosen]
+						'nip' => $dosen[$nama_dosen],
+						'nama' => $nama_dosen,
+						'nim' => $nim,
 					);
 				}
 				$i++;
@@ -177,30 +198,139 @@ class Download extends CI_Controller {
 				}
 			}
 		}
-		$l=0;
-		$kk = ["AIDE","KASPER","PLSI"];
-		foreach($pem1 as $value){
-			$nim = $mhs[$l]["mhs_nim"];
-			$data = array(
-				'ta_id' => "TA".$mhs[$l]["mhs_nim"]."_Periode-2024/04/20-370",
-				'mhs_nim' => $nim,
-				'dosen1' => $value["nip"],
-				'dosen2' => $pem2[$l]["nip"],
-				'dosen1_status' => "Diajukan",
-				'dosen2_status' => "Diajukan",
-				'ta_judul' => $value["judul"],
-				'ta_status' => "Diajukan",
-				'ta_kebaharuan' => "baru",
-				'kk_id' => $kk[rand(0,2)],
-				'ta_progres' => "Diajukan",
-				'ta_created_at' => date("y-m-d H:i:s"),
-				'ta_asal' => "Sendiri",
-				'ta_pkl' => "Tidak",
-				'ta_tim' => "Regular",
-				'periode_id' => "Periode-2024/04/20-370"
-			);
-			$l++;
-			$this->postmodel->insertTa($data);
+		
+		if($periode){
+			$l=0;
+			$kk = ["AIDE","KASPER","PLSI"];
+			foreach($pem1 as $value){
+				$ta_dispensasi = "";
+				if($value["dispen"] == "Dispensasi"){
+					$ta_dispensasi = "http://localhost/tugasakhir/assets/berkas/dispensasi/14117098_Riwandy.pdf";
+				}
+				$data = array(
+					'ta_id' => "TA".$value["nim"]."_".$periode["periode_id"],
+					'mhs_nim' => $value["nim"],
+					'dosen1' => $value["nip"],
+					'dosen2' => $pem2[$l]["nip"],
+					'dosen1_status' => "Diajukan",
+					'dosen2_status' => "Diajukan",
+					'ta_judul' => $value["judul"],
+					'ta_status' => $value["dispen"],
+					'ta_kebaharuan' => "baru",
+					'kk_id' => $kk[rand(0,2)],
+					'ta_progres' => "Diajukan",
+					'ta_created_at' => date("y-m-d H:i:s"),
+					'ta_asal' => "Sendiri",
+					'ta_pkl' => "Tidak",
+					'ta_tim' => $value["tim"],
+					'periode_id' => $periode["periode_id"],
+					'ta_draft' => "http://localhost/tugasakhir/assets/berkas/draft/14117055_Aldi_Indrawan.pdf",
+					'ta_dispensasi' => $ta_dispensasi,
+					'ta_pendukung' => "http://localhost/tugasakhir/assets/berkas/pendukung/14117098_Riwandy.pdf",
+				);
+				$l++;
+				$this->postmodel->insertTa($data);
+			}
+		}else{
+			echo "tidak ada periode aktif";
+		}
+	}
+
+	//digunakan untuk force insert mhs
+	public function mhs_insert(){
+		$inputFileName = 'C:\xampp\htdocs\TugasAkhir\assets\berkas\data.xlsx';
+		$inputFileType = IOFactory::identify($inputFileName);
+
+		$objReader =IOFactory::createReader($inputFileType);
+		$object = $objReader->load($inputFileName);
+		$k=1;
+		foreach($object->getWorksheetIterator() as $worksheet)
+		{
+			$k++;
+			if($k==3){
+				break;
+			}
+			$highestRow = $worksheet->getHighestRow();
+			$highestColumn = $worksheet->getHighestColumn();	
+			$i=1;
+			for($row=2; $row<=$highestRow; $row++){
+				$mhs = array();
+				$nama = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+				$nim = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+				if($k==2){
+					$mhs = array(
+						"mhs_nama" => $nama,
+						"mhs_nim" => $nim,
+						"mhs_telp" => "089674635263",
+						"mhs_semester" => rand(6,14)
+					);
+					$akun = array(
+						"akun_email" => explode(" ",$nama)[0].".".$nim."@itera.ac.id",
+						"akun_password" => "mhs1234",
+						"akun_status" => "Offline",
+						"akun_role" => "Mahasiswa",
+						"user_id" => $nim,
+						"akun_verifikasi" => "True"
+					);
+					$this->postmodel->insertMhs($mhs);
+					$this->postmodel->insertAkun($akun);
+				}
+				$i++;
+				if($i==151){
+					break;
+				}
+			}
+		}
+	}
+
+	//digunakan untuk force insert dosen
+	public function dosen_insert(){
+		$inputFileName = 'C:\xampp\htdocs\TugasAkhir\assets\berkas\data.xlsx';
+		$inputFileType = IOFactory::identify($inputFileName);
+
+		$objReader =IOFactory::createReader($inputFileType);
+		$object = $objReader->load($inputFileName);
+		$k=1;
+		foreach($object->getWorksheetIterator() as $worksheet)
+		{
+			$k++;
+			if($k==6){
+				break;
+			}
+			$highestRow = $worksheet->getHighestRow();
+			$highestColumn = $worksheet->getHighestColumn();	
+			$i=1;
+			for($row=3; $row<=$highestRow; $row++){
+				$nama = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+				$nip = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+				$kk = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+				if($k==5){
+					$mhs = array(
+						"dosen_nama" => $nama,
+						"dosen_nip" => $nip,
+						"kk_id" => $kk,
+						"dosen_telp" => "089674635625",
+						"dosen_kuota1" => 0,
+						"dosen_kuota2" => 0,
+						"dosen_max1" => 0,
+						"dosen_max2" => 0,
+						"dosen_ketersediaan" => "Tersedia",
+						"dosen_status" => "Aktif"
+					);
+					$akun = array(
+						"akun_email" => explode(" ",$nama)[0]."@itera.ac.id",
+						"akun_password" => "Dosen1234",
+						"akun_status" => "Offline",
+						"akun_role" => "Pembimbing",
+						"user_id" => $nip,
+						"akun_verifikasi" => "True"
+					);
+
+					$this->postmodel->insertDosen($mhs);
+					$this->postmodel->insertAkun($akun);
+				}
+				$i++;
+			}
 		}
 	}
 }

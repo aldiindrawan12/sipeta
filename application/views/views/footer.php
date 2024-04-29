@@ -401,7 +401,7 @@
                                 "<button data-toggle='modal' data-target='#modal-update-dosen' onclick='updatedosen(`"+data+"`)' type='button' class='btn btn-sm btn-light bg-grey'>"+
                                 "<i class='far fa-edit'></i>"+
                                 "</button></div>";
-                                if(data!="199303142019031018"){
+                                if(data!="19930314 201903 1 018"){
                                             html += "<div class='btn-group'>"+
                                                 "<a href='javascript:void(0)' onclick='deletedosen(`"+row["dosen_nama"]+"`,`"+data+"`)' class='btn btn-sm btn-light bg-grey'>"+
                                                     "<i class='far fa-trash-alt'></i>"+
@@ -1049,7 +1049,11 @@
                         $("#ta_kebaharuan").text(data["ta_kebaharuan"]);
                         $("#ta_pendukung").attr("href",data["ta_pendukung"]);
                         $("#ta_draft").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_draft"]);
-                        $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        if(data["ta_status"]=="Dispensasi"){
+                            $("#ta_dispensasi").attr("href","<?= base_url("index.php/Mahasiswa/openpdf?url=")?>"+data["ta_dispensasi"]);
+                        }else{
+                            $("#ta_dispensasi").removeAttr("href");
+                        }
                     }
                 });
             }

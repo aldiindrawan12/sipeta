@@ -199,28 +199,27 @@ class TugasAkhir extends CI_Controller {
         }
 
         //fungsi kirim email
-        // foreach($dosen_tersedia as $value){
-        //     $config = [
-        //         'protocol' => "smtp",
-        //         'smtp_host' => "ssl://smtp.googlemail.com",
-        //         'smtp_user' => "aldiindrawan04@gmail.com",
-        //         'smtp_pass' => "hnyd ppva eekl dkxj",
-        //         'mailtype' => "html",
-        //         'smtp_port' => 465,
-        //         'charset' => "utf-8",
-        //         'newline' => "\r\n"
-        //     ];
-        //     $this->email->initialize($config);
-        //     $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
-        //     $this->email->to($value["akun_email"]);
-        //     $this->email->subject('Pemberitahuan Verifikasi Pendaftaran Tugas Akhir');
-        //     $this->email->message('Sebuhung dengan berakhirnya masa pendaftaran tugas akhir dan selesainya validasi oleh
-        //     koordinator tugas akhir.<br><br>Diharapkan kepada setiap dosen dapat melakukan verifikasi pendaftaran tugas akhir pada:'.
-        //     "<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://localhost/tugasakhir<br>dengan menggunakan akun yang sudah diterima setiap dosen sebelumnya");
-        //     //Send mail
-        //     if($this->email->send()){
-        //     }
-        // }
+        foreach($dosen_tersedia as $value){
+            $config = [
+                'protocol' => "smtp",
+                'smtp_host' => "ssl://smtp.googlemail.com",
+                'smtp_user' => "aldiindrawan04@gmail.com",
+                'smtp_pass' => "hnyd ppva eekl dkxj",
+                'mailtype' => "html",
+                'smtp_port' => 465,
+                'charset' => "utf-8",
+                'newline' => "\r\n"
+            ];
+            $this->email->initialize($config);
+            $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
+            $this->email->to($value["akun_email"]);
+            $this->email->subject('Pemberitahuan Verifikasi Pendaftaran Tugas Akhir');
+            $this->email->message('Sebuhung dengan berakhirnya masa pendaftaran tugas akhir dan selesainya validasi oleh
+            koordinator tugas akhir.<br><br>Diharapkan kepada setiap dosen dapat melakukan verifikasi pendaftaran tugas akhir pada:'.
+            "<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://localhost/tugasakhir<br>dengan menggunakan akun yang sudah diterima setiap dosen sebelumnya");
+            //Send mail
+            // if($this->email->send())
+        }
 
         $this->putmodel->validasiPeriode($periode['periode_id'],$kuota);
         $this->session->set_flashdata("validasi-periode","Berhasil");
