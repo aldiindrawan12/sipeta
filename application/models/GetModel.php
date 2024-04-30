@@ -99,6 +99,12 @@ class GetModel extends CI_model
         $this->db->where("sipeta_ta.ta_progres","Diterima");
         return $this->db->get_where("sipeta_ta",array("periode_id"=>$periode_id))->result_array();
     }
+    public function getAllPendaftarDownloadNip($periode_id,$nip){
+        $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_ta.kk_id",'left');
+        $this->db->join("sipeta_mhs","sipeta_mhs.mhs_nim=sipeta_ta.mhs_nim",'left');
+        $this->db->where("sipeta_ta.ta_progres='Diterima' AND (dosen1='".$nip."' OR dosen2='".$nip."')");
+        return $this->db->get_where("sipeta_ta",array("periode_id"=>$periode_id))->result_array();
+    }
     public function getAllPendaftarValidasi($periode_id){
         $this->db->join("sipeta_kk","sipeta_kk.kk_id=sipeta_ta.kk_id",'left');
         $this->db->join("sipeta_mhs","sipeta_mhs.mhs_nim=sipeta_ta.mhs_nim",'left');

@@ -31,9 +31,10 @@
                                                     <th  class="text-center" style="width: 25%"><small>Kode</small></th>
                                                     <th  class="text-center" style="width: 10%;"><small>Tahun</small></th>
                                                     <th  class="text-center" style="width: 10%;"><small>Semester</small></th>
-                                                    <th  class="text-center" style="width: 17%;"><small>Tanggal Mulai</small></th>
-                                                    <th  class="text-center" style="width: 17%;"><small>Tanggal Selesai</small></th>
-                                                    <th  class="text-center" style="width: 5%;"><small>Unduh</small></th>
+                                                    <th  class="text-center" style="width: 15%;"><small>Tanggal Mulai</small></th>
+                                                    <th  class="text-center" style="width: 15%;"><small>Tanggal Selesai</small></th>
+                                                    <th  class="text-center" style="width: 10%;"><small>Unduh</small></th>
+                                                    <th  class="text-center" style="width: 10%;"><small>Unduh Bimbingan Saya</small></th>
                                                 </tr>
                                             </thead>
                                         </table>

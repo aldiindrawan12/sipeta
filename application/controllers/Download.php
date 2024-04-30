@@ -23,9 +23,14 @@ class Download extends CI_Controller {
 
     public function daftar(){
 		$periode_id = $this->input->get("periode");
+		$nip = $this->input->get("nip");
 		$periode = $this->getmodel->getPeriodeById($periode_id);
 		if($periode){
-			$daftar = $this->getmodel->getAllPendaftarDownload($periode["periode_id"]);
+			if($nip!=""){
+				$daftar = $this->getmodel->getAllPendaftarDownloadNip($periode["periode_id"],$nip);
+			}else{
+				$daftar = $this->getmodel->getAllPendaftarDownload($periode["periode_id"]);
+			}
 			if($daftar){
 				for($i=0;$i<count($daftar);$i++){
 					$pembimbing1 = $this->getmodel->getDosenByNip($daftar[$i]["dosen1"]);
@@ -43,7 +48,7 @@ class Download extends CI_Controller {
         $name_file = "Pendaftaran_TA_".$periode_id;
 		$excel = new Spreadsheet();
 
-		// 	//set properti
+			//set properti
 		$excel->getProperties()->setCreator('Koordinator Tugas Akhir IF')
 		->setLastModifiedBy('Koordinator Tugas Akhir IF');
 

@@ -1164,9 +1164,25 @@
                             render: function(data, type, row) {
                                 let html =
                                 "<div class='btn-group'>"+
-                                    "<button onclick='downloadarsip(`"+data+"`)' type='button' class='btn btn-light bg-grey'>"+
+                                    "<button onclick='downloadarsip(`"+data+"`,``)' type='button' class='btn btn-light bg-grey'>"+
                                         "<i class='fa fa-file-download'></i>"+
                                     "</button>";
+                                return html;
+                            }
+                        },
+                        {
+                            "data": "periode_id",
+                            className: 'text-center',
+                            "orderable": false,
+                            render: function(data, type, row) {
+                                let html = "";
+                                if("<?= $akun_role?>"!="Mahasiswa"){
+                                    html +=
+                                    "<div class='btn-group'>"+
+                                        "<button onclick='downloadarsip(`"+data+"`,`<?= $akun["user_id"]?>`)' type='button' class='btn btn-light bg-grey'>"+
+                                            "<i class='fa fa-file-download'></i>"+
+                                        "</button>";
+                                }
                                 return html;
                             }
                         },
@@ -1175,8 +1191,8 @@
             });
         </script>
         <script>
-            function downloadarsip(data){
-                window.location.href = "<?= base_url("index.php/Download/daftar?periode=")?>"+data;
+            function downloadarsip(data,nip){
+                window.location.href = "<?= base_url("index.php/Download/daftar?periode=")?>"+data+"&nip="+nip;
             }
         </script>
         <!-- end datatables arsip Pendaftaran Ta -->
