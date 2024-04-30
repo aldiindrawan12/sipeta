@@ -423,6 +423,72 @@
         </script>
         <!-- end datatables dosen -->
 
+         <!-- datatables dosen Luar-->
+         <script>
+            $(document).ready(function() {
+                var table = null;
+                table = $('#dosen-luar-tabel').DataTable({
+                    language: {
+                        searchPlaceholder: 'Nama Dosen'
+                    },
+                    "processing": true,
+                    "serverSide": true,
+                    "ordering": true,
+                    "order": [
+                        [0, 'asc']
+                    ],
+                    "ajax": {
+                        "url": "<?= base_url('index.php/Datatables/dosen_luar_tabel') ?>",
+                        "type": "POST",
+                    },
+                    "deferRender": true,
+                    "aLengthMenu": [
+                        [10, 30, 50, 100],
+                        [10, 30, 50, 100]
+                    ],
+                    "columns": [
+                        {
+                            "data": "dosen_nip",
+                            render: function(data, type, row) {
+                                let html = "<small>"+data+"</small>";
+                                return html;
+                            }
+                        },
+                        {
+                            "data": "dosen_nama",
+                            "orderable": false,
+                            className : "text-center",
+                            render: function(data, type, row) {
+                                let html = "<small>"+data+"</small>";
+                                return html;
+                            }
+                        },
+                        <?php if($page == "Dashboard Koordinator"){?>
+                        {
+                            "data": "dosen_nip",
+                            className: 'text-center',
+                            "orderable": false,
+                            render: function(data, type, row) {
+                                let html = "<div class='btn-group'>"+
+                                                "<a href='javascript:void(0)' onclick='deletedosenluar(`"+row["dosen_nama"]+"`,`"+data+"`)' class='btn btn-sm btn-light bg-grey'>"+
+                                                    "<i class='far fa-trash-alt'></i>"+
+                                                "</a>"+
+                                            "</div>";
+                                            return html;
+                            }
+                        },
+                        <?php }?>
+                    ],
+                });
+            });
+            function view_maks_pemb(now,now2,nip){
+                $("#dosen_max1").val(now);
+                $("#dosen_max2").val(now2);
+                $("#dosen_nip_max").val(nip);
+            }
+        </script>
+        <!-- end datatables dosen Luar-->
+
         <!-- <?php if($page == "Dashboard Koordinator"){?> -->
         <!-- set view dosen -->
         <script>
@@ -488,6 +554,23 @@
             }
         </script>
         <!-- end script confirm delete dosen -->
+        <!-- script confirm delete dosen luar -->
+            <script>
+            function deletedosenluar(a,nip){
+                Swal.fire({
+                    title: "Hapus Data Dosen "+a+"?",
+                    showDenyButton: true,
+                    confirmButtonText: "Ya",
+                    denyButtonText: `Batal`
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.href = "<?= base_url("index.php/Koordinator/deletedosenluar/")?>"+nip
+                    }
+                });
+            }
+        </script>
+        <!-- end script confirm delete dosen luar -->
         <!-- cek nip dan email -->
         <script>
             nip_data = [];

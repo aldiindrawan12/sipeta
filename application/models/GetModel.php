@@ -36,7 +36,7 @@ class GetModel extends CI_model
         return $this->db->get_where("sipeta_dosen",array("dosen_status"=>"Aktif"))->result_array();
     }
     public function getAllDosenLuar(){
-        return $this->db->get("sipeta_dosen_luar")->result_array();
+        return $this->db->get_where("sipeta_dosen_luar",array("dosen_status"=>"Aktif"))->result_array();
     }
     public function getDosenByNipLuar($dosen_nip){
         return $this->db->get_where("sipeta_dosen_luar",array("dosen_nip"=>$dosen_nip))->row_array();

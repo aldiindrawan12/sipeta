@@ -110,6 +110,7 @@ class Koordinator extends CI_Controller {
             "dosen_nama" => $this->input->post("dosen_nama"),
             "dosen_telp" => $this->input->post("dosen_telp"),
             "dosen_email" => $this->input->post("dosen_email"),
+            "dosen_status" => "Aktif",
         );
         $this->postmodel->insertDosenLuar($dosen);
         $this->session->set_flashdata("insert-dosen","Berhasil");
@@ -119,6 +120,13 @@ class Koordinator extends CI_Controller {
     // fungsi untuk hapus dosen
     public function deletedosen($dosen_nip){
         $this->deletemodel->deleteDosen(str_replace("%20"," ",$dosen_nip));
+        $this->session->set_flashdata("delete-dosen","Berhasil");
+        redirect(base_url("index.php/koordinator"));
+    }
+
+    // fungsi untuk hapus dosen luar
+    public function deletedosenluar($dosen_nip){
+        $this->deletemodel->deleteDosenLuar(str_replace("%20"," ",$dosen_nip));
         $this->session->set_flashdata("delete-dosen","Berhasil");
         redirect(base_url("index.php/koordinator"));
     }

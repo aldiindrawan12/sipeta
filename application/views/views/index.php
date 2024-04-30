@@ -172,6 +172,26 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                            <a class="block block-rounded block-link-pop p-2">
+                                <div class="block-header">
+                                    <h3 class="block-title">Dosen Luar</h3>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter table-striped table-bordered" width="100%" id="dosen-luar-tabel">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width:25%;"><small>NIP</small></th>
+                                                <th class="text-center" style="width:25%"><small>Nama</small></th>
+                                                <?php if($_SESSION["akun_role"]=="Koordinator"){?>
+                                                    <th class="text-center" style="width: 15%;"><small>Aksi</small></th>
+                                                <?php }?>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <!-- END Stats -->
                 </div>

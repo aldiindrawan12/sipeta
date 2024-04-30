@@ -19,4 +19,19 @@ class DeleteModel extends CI_model
         $this->db->where("dosen2",$dosen_nip);
         return $this->db->update("sipeta_ta");
     }
+
+    public function deleteDosenLuar($dosen_nip){
+        $this->db->set("dosen_nip",$dosen_nip."-arsip");
+        $this->db->set("dosen_status","Tidak Aktif");
+        $this->db->where("dosen_nip",$dosen_nip);
+        $this->db->update("sipeta_dosen_luar");
+
+        $this->db->set("dosen1",$dosen_nip."-arsip");
+        $this->db->where("dosen1",$dosen_nip);
+        $this->db->update("sipeta_ta");
+
+        $this->db->set("dosen2",$dosen_nip."-arsip");
+        $this->db->where("dosen2",$dosen_nip);
+        return $this->db->update("sipeta_ta");
+    }
 }

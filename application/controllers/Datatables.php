@@ -19,6 +19,12 @@ class Datatables extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function dosen_luar_tabel(){
+        $postData = $this->input->post();
+        $data = $this->datatablesmodel->getDosenLuar($postData);
+        echo json_encode($data);
+    }
+
     public function daftar_tabel(){
         $dosen_nip = $this->input->post("dosen_nip");
         $tipe = $this->input->post("tipe");

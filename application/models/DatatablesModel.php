@@ -78,6 +78,74 @@ class DatatablesModel extends CI_model
     
         return $response; 
     }
+    function getDosenLuar($postData){
+        $tanggal_now = date("Y-m-d");
+        $response = array();
+    
+        ## Read value
+        $draw = $postData['draw'];
+        $start = $postData['start']; // mulai display per page
+        $rowperpage = $postData['length']; // Rows display per page
+        $columnIndex = $postData['order'][0]['column']; // Column index untuk sorting
+        $columnName = $postData['columns'][$columnIndex]['data']; // Column name untuk sorting
+        $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+        $searchValue = $postData['search']['value']; // Search value
+    
+        ## Search 
+        $search_arr = array();
+        $searchQuery = "";
+        if($searchValue != ''){
+            $search_arr[] = " (dosen_nip like '%".$searchValue."%' or 
+                dosen_nama like '%".$searchValue."%') ";
+        }
+        $search_arr[] = " dosen_status='Aktif' ";
+        if(count($search_arr) > 0){ //gabung kondisi where
+            $searchQuery = implode(" and ",$search_arr);
+        }
+    
+        ## Total record without filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->where("dosen_status='Aktif'");
+        $records = $this->db->get('sipeta_dosen_luar')->result();
+        $totalRecords = $records[0]->allcount;
+    
+        ## Total record with filtering
+        $this->db->select('count(*) as allcount');
+        if($searchQuery != ''){
+            $this->db->where($searchQuery);
+        }
+        $records = $this->db->get('sipeta_dosen_luar')->result();
+        $totalRecordwithFilter = $records[0]->allcount;
+    
+        ## data hasil record
+        $this->db->select('*');
+        if($searchQuery != ''){
+            $this->db->where($searchQuery);
+        }
+        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->limit($rowperpage, $start);
+        $records = $this->db->get('sipeta_dosen_luar')->result();
+    
+        $data = array();
+        $n = 1;
+        foreach($records as $record ){
+            $data[] = array( 
+                "no"=>$n,
+                "dosen_nip"=>$record->dosen_nip,
+                "dosen_nama"=>$record->dosen_nama
+            ); 
+            $n++;
+        }
+        ## Response
+        $response = array(
+        "draw" => intval($draw),
+        "iTotalRecords" => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecordwithFilter,
+        "aaData" => $data
+        );
+    
+        return $response; 
+    }
     function getDaftar($postData,$periode,$nip,$tipe){
         $data_periode = $this->db->get_where("sipeta_periode",array("periode_id"=>$periode))->row_array();
         $tanggal_now = date("Y-m-d");
