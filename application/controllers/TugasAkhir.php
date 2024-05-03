@@ -113,6 +113,8 @@ class TugasAkhir extends CI_Controller {
     //fungsi untuk mendapatkan data pendaftaran tugas akhir dari database
     public function ajaxdaftar(){
         $ta_id = $this->input->get("ta_id");
+        $tipe = $this->input->get("tipe");
+        $this->putmodel->updateBuka($ta_id,$tipe);
         $daftar = $this->getmodel->getTaById($ta_id);
         $pembimbing1 = $this->getmodel->getDosenByNip($daftar["dosen1"]);
         $pembimbing2 = $this->getmodel->getDosenByNip($daftar["dosen2"]);
@@ -212,13 +214,15 @@ class TugasAkhir extends CI_Controller {
             ];
             $this->email->initialize($config);
             $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
-            $this->email->to($value["akun_email"]);
+            // $this->email->to($value["akun_email"]); //SAAT DEPLOY AKTIFKAN INI
+            $this->email->to("aldi.14117055@student.itera.ac.id");
             $this->email->subject('Pemberitahuan Verifikasi Pendaftaran Tugas Akhir');
             $this->email->message('Sebuhung dengan berakhirnya masa pendaftaran tugas akhir dan selesainya validasi oleh
             koordinator tugas akhir.<br><br>Diharapkan kepada setiap dosen dapat melakukan verifikasi pendaftaran tugas akhir pada:'.
             "<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://localhost/tugasakhir<br>dengan menggunakan akun yang sudah diterima setiap dosen sebelumnya");
+            // "<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : https://sipeta.noz.co.id<br>dengan menggunakan akun yang sudah diterima setiap dosen sebelumnya");                
             //Send mail
-            // if($this->email->send())
+            $this->email->send();
         }
 
         $this->putmodel->validasiPeriode($periode['periode_id'],$kuota);

@@ -210,6 +210,11 @@ class DatatablesModel extends CI_model
         if($searchQuery != ''){
             $this->db->where($searchQuery);
         }
+        if($nip){
+            $this->db->order_by("sipeta_ta.dosen".$tipe."_status","ASC");
+        }else{
+            $this->db->order_by("sipeta_ta.ta_progres","DESC");
+        }
         $this->db->order_by("ta_status", "DESC");
         $this->db->order_by("ta_tim", "DESC");
         $this->db->limit($rowperpage, $start);
@@ -236,6 +241,9 @@ class DatatablesModel extends CI_model
                 "dosen1_status"=>$record->dosen1_status,
                 "dosen2_status"=>$record->dosen2_status,
                 "ta_progres"=>$record->ta_progres,
+                "ta_lihat_pembimbing1"=>$record->ta_lihat_pembimbing1,
+                "ta_lihat_pembimbing2"=>$record->ta_lihat_pembimbing2,
+                "ta_lihat_koordinator"=>$record->ta_lihat_koordinator,
                 "periode" => $data_periode["periode_progress"]
             ); 
             $n++;

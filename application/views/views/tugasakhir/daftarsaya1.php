@@ -47,6 +47,7 @@
                                                     <a class='btn btn-sm btn-outline-primary btn-success'><small><i class='fa fa-check mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Diterima
                                                     <a class='btn btn-sm btn-outline-primary btn-warning'><small><i class='fa fa-question mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Menunggu
                                                     <a class='btn btn-sm btn-outline-primary btn-danger'><small><i class='fa fa-times mr-1 text-light'></i></small><i class='far fa-eye text-light'></i></a> Ditolak
+                                                    <!-- <a class='btn btn-sm btn-outline-primary btn-light'><small><i class='fa fa-question mr-1 text-dark'></i></small><i class='far fa-eye text-dark'></i><br>Dilihat</a> Sudah Dibuka -->
                                             </p>
                                             <table class="table table-vcenter table-striped table-bordered" id="daftar-saya-tabel">
                                                 <thead class="bg-secondary text-white">
@@ -55,9 +56,9 @@
                                                         <th class="text-center" style="width: 25%;">Judul</th>
                                                         <th class="text-center" style="width: 15%;">Pembimbing 1</th>
                                                         <th class="text-center" style="width: 15%;">Pembimbing 2</th>
-                                                        <th class="text-center" style="width: 10%;">Status Judul</th>
-                                                        <th class="text-center" style="width: 10%;">Tipe Judul</th>
-                                                        <th class="text-center" style="width: 10%;">Aksi</th>
+                                                        <th class="text-center" style="width: 5%;">Status Judul</th>
+                                                        <th class="text-center" style="width: 5%;">Tipe Judul</th>
+                                                        <th class="text-center" style="width: 15%;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                             </table>

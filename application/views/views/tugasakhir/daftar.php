@@ -87,10 +87,10 @@
                                             <thead class="bg-secondary text-white">
                                                 <tr>
                                                     <th rowspan=2 class="text-center" style="width: 5%;"><small>NIM</small></th>
-                                                    <th rowspan=2 class="text-center" style="width: 35%;"><small>Judul</small></th>
+                                                    <th rowspan=2 class="text-center" style="width: 25%;"><small>Judul</small></th>
                                                     <th colspan=2 class="text-center" style="width: 25%;"><small>Pembimbing 1</small></th>
                                                     <th colspan=2 class="text-center" style="width: 25%;"><small>Pembimbing 2</small></th>
-                                                    <th rowspan=2 class="text-center" style="width: 10%"><small>Aksi</small></th>
+                                                    <th rowspan=2 class="text-center" style="width: 20%"><small>Aksi</small></th>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-center" style="width: 15%;"><small>Nama</small></th>

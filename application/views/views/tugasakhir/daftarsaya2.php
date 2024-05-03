@@ -55,9 +55,9 @@
                                                         <th class="text-center" style="width: 25%;">Judul</th>
                                                         <th class="text-center" style="width: 15%;">Pembimbing 1</th>
                                                         <th class="text-center" style="width: 15%;">Pembimbing 2</th>
-                                                        <th class="text-center" style="width: 10%;">Status Judul</th>
-                                                        <th class="text-center" style="width: 10%;">Tipe Judul</th>
-                                                        <th class="text-center" style="width: 10%;">Aksi</th>
+                                                        <th class="text-center" style="width: 5%;">Status Judul</th>
+                                                        <th class="text-center" style="width: 5%;">Tipe Judul</th>
+                                                        <th class="text-center" style="width: 15%;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                             </table>

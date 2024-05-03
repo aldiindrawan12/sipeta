@@ -111,12 +111,13 @@ class Mahasiswa extends CI_Controller {
             $dosen2 = str_replace($this->input->post("dosen2"),"-luar","");
         }else{
             $dosen2_status = "Diajukan";
+            $dosen2 = $this->input->post("dosen2");
         }
         // DRAFT TA FILE
         $config['upload_path'] = './assets/berkas/draft'; //letak folder file yang akan diupload
         $config['allowed_types'] = 'pdf'; //jenis file yang dapat diterima
         $config['max_size'] = '1000'; // kb
-        $config['file_name'] = $mhs["mhs_nim"]."_".$mhs["mhs_nama"];
+        $config['file_name'] = "draft_".$mhs["mhs_nim"]."_".$mhs["mhs_nama"];
         $file_draft="";
         $this->load->library('upload', $config); //deklarasi library upload (config)
         if ($this->upload->do_upload('ta_draft')) {
@@ -126,7 +127,7 @@ class Mahasiswa extends CI_Controller {
         // PENDUKUNG FILE
         $config2['upload_path'] = './assets/berkas/pendukung'; //letak folder file yang akan diupload
         // $config2['max_size'] = '1000'; // kb
-        $config2['file_name'] = $mhs["mhs_nim"]."_".$mhs["mhs_nama"];
+        $config2['file_name'] = "pendukung_".$mhs["mhs_nim"]."_".$mhs["mhs_nama"];
         $file_pendukung="";
         $this->load->library('upload', $config2); //deklarasi library upload (config)
         $this->upload->initialize($config2);
@@ -139,7 +140,7 @@ class Mahasiswa extends CI_Controller {
         $config3['upload_path'] = './assets/berkas/dispensasi'; //letak folder file yang akan diupload
         $config3['allowed_types'] = 'pdf'; //jenis file yang dapat diterima
         $config3['max_size'] = '1000'; // kb
-        $config3['file_name'] = $mhs["mhs_nim"]."_".$mhs["mhs_nama"];
+        $config3['file_name'] = "dispensasi_".$mhs["mhs_nim"]."_".$mhs["mhs_nama"];
         $file_dispensasi="";
         $this->load->library('upload', $config3); //deklarasi library upload (config)
         $this->upload->initialize($config3);
@@ -167,6 +168,8 @@ class Mahasiswa extends CI_Controller {
             'ta_draft' => $file_draft,
             'ta_pendukung' => $file_pendukung,
             'ta_dispensasi' => $file_dispensasi,
+            'ta_lihat_pembimbing1' => "False",
+            'ta_lihat_pembimbing2' => "False",
             'periode_id' => $this->input->post("periode_id")
         );
         $this->postmodel->insertTa($data);

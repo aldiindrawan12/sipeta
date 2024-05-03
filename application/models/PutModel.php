@@ -121,6 +121,15 @@ class PutModel extends CI_model
         $this->db->where("periode_id",$data["periode_id"]);
         return $this->db->update("sipeta_periode");
     }
+    public function updateBuka($ta_id,$tipe){
+        if($tipe==0){
+            $this->db->set("ta_lihat_koordinator","True");
+        }else{
+            $this->db->set("ta_lihat_pembimbing".$tipe,"True");
+        }
+        $this->db->where("ta_id",$ta_id);
+        return $this->db->update("sipeta_ta");
+    }
     public function closePeriode($periode_id){
         $this->db->set("ta_progres","Proses Validasi");
         $this->db->where("periode_id",$periode_id);

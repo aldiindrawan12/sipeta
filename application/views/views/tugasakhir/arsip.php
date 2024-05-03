@@ -34,7 +34,9 @@
                                                     <th  class="text-center" style="width: 15%;"><small>Tanggal Mulai</small></th>
                                                     <th  class="text-center" style="width: 15%;"><small>Tanggal Selesai</small></th>
                                                     <th  class="text-center" style="width: 10%;"><small>Unduh</small></th>
+                                                    <?php if($akun_role != "Mahasiswa"){?>
                                                     <th  class="text-center" style="width: 10%;"><small>Unduh Bimbingan Saya</small></th>
+                                                    <?php } ?>
                                                 </tr>
                                             </thead>
                                         </table>

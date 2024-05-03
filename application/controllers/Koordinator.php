@@ -90,7 +90,8 @@ class Koordinator extends CI_Controller {
         ];
         $this->email->initialize($config);
         $this->email->from("aldiindrawan04@gmail.com", 'SIPETA IF');
-        $this->email->to($akun["akun_email"]);
+        // $this->email->to($akun["akun_email"]); //SAAT DEPLOY AKTIFKAN INI
+        $this->email->to("aldi.14117055@student.itera.ac.id");
         $this->email->subject('Akun Sistem Informasi Pendaftaran Tugas Akhir');
         $this->email->message('Email anda sudah didaftarkan dalam sistem informasi pendaftaran dengan detail sebagai berikut :<br><br>'.
         '<br><br>Sistem Informasi Pendaftaran Tugas Akhir<br>Link Sistem Informasi : http://sipeta.noz.co.id<br>Email : '.$akun["akun_email"].'<br>password : Dosen1234');

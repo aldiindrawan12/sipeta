@@ -24,6 +24,7 @@ class Download extends CI_Controller {
     public function daftar(){
 		$periode_id = $this->input->get("periode");
 		$nip = $this->input->get("nip");
+		$dosen = $this->getmodel->getDosenByNip($nip);
 		$periode = $this->getmodel->getPeriodeById($periode_id);
 		if($periode){
 			if($nip!=""){
@@ -45,7 +46,11 @@ class Download extends CI_Controller {
 				$daftar == NULL;
 			}
         }
-        $name_file = "Pendaftaran_TA_".$periode_id;
+		if($nip){
+			$name_file = $dosen["dosen_nama"]."_Pendaftaran_TA_".$periode_id;
+		}else{
+			$name_file = "All_Pendaftaran_TA_".$periode_id;
+		}
 		$excel = new Spreadsheet();
 
 			//set properti
@@ -146,6 +151,7 @@ class Download extends CI_Controller {
 		);
 		
 		$inputFileName = 'C:\xampp\htdocs\TugasAkhir\assets\berkas\data.xlsx';
+		// $inputFileName = '/home/u5522470/public_html/sipeta/assets/berkas/data.xlsx';
 		$inputFileType = IOFactory::identify($inputFileName);
 
 		$objReader =IOFactory::createReader($inputFileType);
@@ -211,6 +217,7 @@ class Download extends CI_Controller {
 				$ta_dispensasi = "";
 				if($value["dispen"] == "Dispensasi"){
 					$ta_dispensasi = "http://localhost/tugasakhir/assets/berkas/dispensasi/14117098_Riwandy.pdf";
+					// $ta_dispensasi = "/home/u5522470/public_html/sipeta/assets/berkas/dispensasi/14117098_Riwandy.pdf";
 				}
 				$data = array(
 					'ta_id' => "TA".$value["nim"]."_".$periode["periode_id"],
@@ -227,11 +234,16 @@ class Download extends CI_Controller {
 					'ta_created_at' => date("y-m-d H:i:s"),
 					'ta_asal' => "Sendiri",
 					'ta_pkl' => "Tidak",
+					'ta_lihat_pembimbing2' => "False",
+					'ta_lihat_pembimbing1' => "False",
+					'ta_lihat_koordinator' => "False",
 					'ta_tim' => $value["tim"],
 					'periode_id' => $periode["periode_id"],
 					'ta_draft' => "http://localhost/tugasakhir/assets/berkas/draft/14117055_Aldi_Indrawan.pdf",
+					// 'ta_draft' => "/home/u5522470/public_html/sipeta/assets/berkas/draft/14117055_Aldi_Indrawan.pdf",
 					'ta_dispensasi' => $ta_dispensasi,
 					'ta_pendukung' => "http://localhost/tugasakhir/assets/berkas/pendukung/14117098_Riwandy.pdf",
+					// 'ta_pendukung' => "/home/u5522470/public_html/sipeta/assets/berkas/pendukung/14117098_Riwandy.pdf",
 				);
 				$l++;
 				$this->postmodel->insertTa($data);
@@ -244,6 +256,7 @@ class Download extends CI_Controller {
 	//digunakan untuk force insert mhs
 	public function mhs_insert(){
 		$inputFileName = 'C:\xampp\htdocs\TugasAkhir\assets\berkas\data.xlsx';
+		// $inputFileName = '/home/u5522470/public_html/sipeta/assets/berkas/data.xlsx';
 		$inputFileType = IOFactory::identify($inputFileName);
 
 		$objReader =IOFactory::createReader($inputFileType);
@@ -291,6 +304,7 @@ class Download extends CI_Controller {
 	//digunakan untuk force insert dosen
 	public function dosen_insert(){
 		$inputFileName = 'C:\xampp\htdocs\TugasAkhir\assets\berkas\data.xlsx';
+		// $inputFileName = '/home/u5522470/public_html/sipeta/assets/berkas/data.xlsx';
 		$inputFileType = IOFactory::identify($inputFileName);
 
 		$objReader =IOFactory::createReader($inputFileType);
